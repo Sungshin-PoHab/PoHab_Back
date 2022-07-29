@@ -5,10 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -20,11 +17,13 @@ public class ApplyStatus {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    // 추후 관계 수정 필요
-    private Integer user_id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    // 추후 관계 수정 필요
-    private String group_id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "party_id")
+    private Party party;
 
     private String is_submit;
 
