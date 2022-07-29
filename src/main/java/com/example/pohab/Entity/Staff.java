@@ -15,10 +15,10 @@ public class Staff {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
-    private Long id;
+    private int id;
 
     @Column(unique = true, nullable = false)
-    private Long user_id;
+    private int user_id;
 
     @Column(length = 27, nullable = false)
     private String group_id;
@@ -38,7 +38,7 @@ public class Staff {
 
     //빌더
     @Builder
-    public Staff(Long user_id, String group_id, String role) {
+    public Staff(int user_id, String group_id, String role) {
         this.user_id = user_id;
         this.group_id = group_id;
         this.role = role;
