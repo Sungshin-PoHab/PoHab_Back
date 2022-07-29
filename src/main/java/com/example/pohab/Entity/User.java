@@ -16,7 +16,7 @@ public class User {
     //필드
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(unique = true, length = 50, nullable = false)
     private String email;

@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class Grading_standard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId
