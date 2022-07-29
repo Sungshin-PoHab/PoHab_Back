@@ -17,7 +17,7 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private String group_id;
+    private String party_id;
 
     private String question;
 }
