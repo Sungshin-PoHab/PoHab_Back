@@ -15,7 +15,7 @@ public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
-    private Long id;
+    private int id;
 
     @Column(length = 25, nullable = false)
     private String name;
