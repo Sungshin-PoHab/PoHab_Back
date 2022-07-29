@@ -9,8 +9,8 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(name = "group")
-public class Group {
+@Table(name = "party")
+public class Party {
     //필드
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +25,7 @@ public class Group {
 
     //빌더
     @Builder
-    public Group(String name, String category) {
+    public Party(String name, String category) {
         this.name = name;
         this.category = category;
     }
