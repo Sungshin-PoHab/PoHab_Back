@@ -18,12 +18,10 @@ public class Grading {
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId
     @JoinColumn(name = "standard_id")
     private Grading_standard grading_standard;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId
     @JoinColumn(name = "grading_id")
     private Grading grading;
 
