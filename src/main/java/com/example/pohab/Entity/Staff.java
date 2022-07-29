@@ -30,8 +30,8 @@ public class Staff {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId
-    @JoinColumn(name = "group_id")
-    private Group group;
+    @JoinColumn(name = "party_id")
+    private Party party;
 
     //빌더
     @Builder
