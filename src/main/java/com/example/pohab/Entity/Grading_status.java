@@ -17,15 +17,15 @@ public class Grading_status {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @MapsId
-//    @JoinColumn(name = "staff_id")
-//    private Staff staff;
-//
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @MapsId
-//    @JoinColumn(name = "apply_id")
-//    private Apply_status apply_status;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId
+    @JoinColumn(name = "staff_id")
+    private Staff staff;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId
+    @JoinColumn(name = "apply_id")
+    private ApplyStatus apply_status;
 
     @Column(nullable = false)
     private int score;

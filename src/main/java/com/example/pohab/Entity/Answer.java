@@ -1,6 +1,8 @@
 package com.example.pohab.Entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -8,6 +10,8 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class Answer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,11 +25,4 @@ public class Answer {
     private Question question;
 
     private String answer;
-
-    public Answer(Integer id, Integer apply_id, Question question, String answer) {
-        this.id = id;
-        this.apply_id = apply_id;
-        this.question = question;
-        this.answer = answer;
-    }
 }

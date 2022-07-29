@@ -17,10 +17,10 @@ public class Grading_standard {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @MapsId
-//    @JoinColumn(name = "group_id")
-//    private Group group;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId
+    @JoinColumn(name = "group_id")
+    private Group group;
 
     @Column(nullable = false)
     private String grading_standard; // 채점 질문
