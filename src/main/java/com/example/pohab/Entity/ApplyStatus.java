@@ -1,6 +1,8 @@
 package com.example.pohab.Entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
@@ -11,6 +13,8 @@ import javax.persistence.Id;
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class ApplyStatus {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,12 +29,4 @@ public class ApplyStatus {
     private String is_submit;
 
     private String is_pass;
-
-    public ApplyStatus(Integer id, Integer user_id, String group_id, String is_submit, String is_pass) {
-        this.id = id;
-        this.user_id = user_id;
-        this.group_id = group_id;
-        this.is_submit = is_submit;
-        this.is_pass = is_pass;
-    }
 }
