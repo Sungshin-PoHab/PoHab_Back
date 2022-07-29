@@ -19,8 +19,8 @@ public class Grading_standard {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId
-    @JoinColumn(name = "group_id")
-    private Group group;
+    @JoinColumn(name = "party_id")
+    private Party party;
 
     @Column(nullable = false)
     private String grading_standard; // 채점 질문
