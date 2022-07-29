@@ -15,7 +15,7 @@ public class Party {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
-    private int id;
+    private Integer id;
 
     @Column(length = 25, nullable = false)
     private String name;
