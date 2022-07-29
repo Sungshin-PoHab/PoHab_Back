@@ -18,12 +18,10 @@ public class Grading_status {
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId
     @JoinColumn(name = "staff_id")
     private Staff staff;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId
     @JoinColumn(name = "apply_id")
     private ApplyStatus apply_status;
 
