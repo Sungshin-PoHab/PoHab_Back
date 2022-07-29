@@ -17,9 +17,6 @@ public class Staff {
     @Column(unique = true, nullable = false)
     private int id;
 
-    @Column(unique = true, nullable = false)
-    private int user_id;
-
     @Column(length = 27, nullable = false)
     private String group_id;
 
@@ -38,8 +35,8 @@ public class Staff {
 
     //빌더
     @Builder
-    public Staff(int user_id, String group_id, String role) {
-        this.user_id = user_id;
+    public Staff(User user, String group_id, String role) {
+        this.user = user;
         this.group_id = group_id;
         this.role = role;
     }
