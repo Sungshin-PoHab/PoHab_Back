@@ -1,5 +1,7 @@
 package com.example.pohab.Entity;
 
+import com.example.pohab.Enum.IsPass;
+import com.example.pohab.Enum.IsSubmit;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -16,12 +18,12 @@ public class Pass {
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "party_id")
-    private Party party;
+    @JoinColumn(name = "apply_status_id")
+    private ApplyStatus applyStatus;
 
-    private String is_submit;
+    private IsSubmit is_submit;
 
-    private String is_pass;
+    private IsPass is_pass;
 
     private int num; // 차수
 }
