@@ -1,27 +1,27 @@
 package com.example.pohab.Entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 
 @Getter
-@Setter
-@Entity
-@AllArgsConstructor
 @NoArgsConstructor
-public class ApplyStatus {
+@Entity
+@Table(name = "pass")
+public class Pass {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true, nullable = false)
     private Integer id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "party_id")
     private Party party;
+
+    private String is_submit;
+
+    private String is_pass;
+
+    private int num; // 차수
 }
