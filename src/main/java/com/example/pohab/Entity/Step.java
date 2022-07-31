@@ -2,7 +2,6 @@ package com.example.pohab.Entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.apache.catalina.Group;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -17,9 +16,9 @@ public class Step {
     @Column(unique = true, nullable = false)
     private Integer id;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "group_id")
-    private Group group;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "party_id")
+    private Party party;
 
     private int step;
 
