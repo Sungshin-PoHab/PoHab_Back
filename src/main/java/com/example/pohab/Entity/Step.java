@@ -1,29 +1,27 @@
 package com.example.pohab.Entity;
 
-import com.example.pohab.Enum.IsPass;
-import com.example.pohab.Enum.IsSubmit;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.apache.catalina.Group;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
 @Entity
 @Table(name = "pass")
-public class Pass {
+public class Step {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "apply_status_id")
-    private ApplyStatus applyStatus;
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "group_id")
+    private Group group;
 
-    private IsSubmit is_submit;
+    private int step;
 
-    private IsPass is_pass;
-
-    private int num; // 차수
+    private LocalDateTime end_date;
 }
