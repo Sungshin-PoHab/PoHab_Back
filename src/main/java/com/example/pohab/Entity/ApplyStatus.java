@@ -1,11 +1,14 @@
 package com.example.pohab.Entity;
 
+import com.example.pohab.Enum.IsPass;
+import com.example.pohab.Enum.IsSubmit;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -22,6 +25,14 @@ public class ApplyStatus {
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "party_id")
-    private Party party;
+    @JoinColumn(name = "step_id")
+    private Step step;
+
+    private LocalDateTime tmp_date;
+
+    private LocalDateTime sub_date;
+
+    private IsSubmit is_submit;
+
+    private IsPass is_pass;
 }
