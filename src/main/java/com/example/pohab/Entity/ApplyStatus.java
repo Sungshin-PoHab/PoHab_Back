@@ -22,6 +22,6 @@ public class ApplyStatus {
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "party_id")
-    private Party party;
+    @JoinColumn(name = "department_id")
+    private Department department;
 }
