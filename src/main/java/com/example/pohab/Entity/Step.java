@@ -4,12 +4,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
 @Entity
 @Table(name = "pass")
-public class Pass {
+public class Step {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
@@ -19,9 +20,7 @@ public class Pass {
     @JoinColumn(name = "party_id")
     private Party party;
 
-    private String is_submit;
+    private int step;
 
-    private String is_pass;
-
-    private int num; // 차수
+    private LocalDateTime end_date;
 }
