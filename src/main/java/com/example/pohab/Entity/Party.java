@@ -13,9 +13,8 @@ import javax.persistence.*;
 public class Party {
     //필드
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
-    private Integer id;
+    private String id;
 
     @Column(length = 25, nullable = false)
     private String name;
@@ -23,7 +22,8 @@ public class Party {
     @Column(length = 25, nullable = false)
     private String category;
 
-    private Integer personnel;
+    @Column(length = 25, nullable = false)
+    private Integer personnel; // 모집 인원
 
     //빌더
     @Builder
