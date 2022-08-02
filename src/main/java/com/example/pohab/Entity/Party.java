@@ -25,10 +25,15 @@ public class Party {
 
     private Integer personnel;
 
+    @Column(length = 10, nullable = false)
+    private String code;
+
     //빌더
     @Builder
-    public Party(String name, String category) {
+    public Party(String name, String category, Integer personnel, String code) {
         this.name = name;
         this.category = category;
+        this.personnel = personnel;
+        this.code = code;
     }
 }
