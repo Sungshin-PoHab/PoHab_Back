@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class Party {
     //필드
     @Id
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, length = 25, nullable = false)
     private String id;
 
     @Column(length = 25, nullable = false)
@@ -24,7 +24,8 @@ public class Party {
     @Column(length = 25, nullable = false)
     private String category;
 
-    private Integer personnel;
+    @Column(length = 25, nullable = false)
+    private Integer personnel; // 모집 인원
 
     @Column(length = 10, nullable = false)
     private String code;
