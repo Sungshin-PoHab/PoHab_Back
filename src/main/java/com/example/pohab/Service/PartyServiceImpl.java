@@ -14,7 +14,7 @@ public class PartyServiceImpl implements PartyService {
     private final PartyRepository partyRepository;
 
     @Override
-    public List<Party> getPartyList() {
+    public List<Party> getAllParty() {
         List<Party> partyList = partyRepository.findAll();
         return partyList;
     }

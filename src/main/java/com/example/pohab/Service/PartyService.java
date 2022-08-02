@@ -7,7 +7,7 @@ import java.util.List;
 public interface PartyService {
 
     /** 소속 전체 리스트 가져오기 */
-    public List<Party> getPartyList();
-
+    public List<Party> getAllParty();
 
 }
+
