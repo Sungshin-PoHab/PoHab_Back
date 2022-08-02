@@ -23,7 +23,7 @@ public class Grading {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "grading_id")
-    private Grading grading;
+    private GradingStatus grading_status;
 
     @Column(nullable = false)
     private int score;
