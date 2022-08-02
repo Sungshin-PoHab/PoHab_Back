@@ -23,6 +23,8 @@ public class Party {
     @Column(length = 25, nullable = false)
     private String category;
 
+    private Integer personnel;
+
     //빌더
     @Builder
     public Party(String name, String category) {
