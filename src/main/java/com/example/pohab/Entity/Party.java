@@ -13,9 +13,8 @@ import javax.persistence.*;
 public class Party {
     //필드
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(unique = true, nullable = false)
-    private Integer id;
+    @Column(unique = true, length = 25, nullable = false)
+    private String id;
 
     @Column(length = 25, nullable = false)
     private String name;
