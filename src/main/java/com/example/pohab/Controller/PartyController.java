@@ -1,4 +1,4 @@
 package com.example.pohab.Controller;
 
-public class GroupController {
+public class PartyController {
 }
