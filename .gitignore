@@ -39,3 +39,6 @@ out/
 
 # DB info file
 src/main/resources/application.properties
+
+# test
+src/test
