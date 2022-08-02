@@ -17,7 +17,11 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private String party_id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id")
+    private Department department;
 
     private String question;
+
+    private Integer answer_length;
 }
