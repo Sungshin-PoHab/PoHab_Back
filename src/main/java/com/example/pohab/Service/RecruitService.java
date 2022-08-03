@@ -1,6 +1,7 @@
 package com.example.pohab.Service;
 
 import com.example.pohab.DTO.CreateStepDto;
+import com.example.pohab.DTO.UpdateStepDto;
 import com.example.pohab.Entity.Party;
 import com.example.pohab.Entity.Step;
 import com.example.pohab.Repository.PartyRepository;
@@ -44,5 +45,17 @@ public class RecruitService {
 
     public List<Step> getPartyStep(String party_id) {
         return this.stepRepository.findAllByParty_Id(party_id);
+    }
+
+    public Step updateStep(Integer step_id, UpdateStepDto updateStepDto) {
+        Step update_step = this.stepRepository.findById(step_id).orElse(null);
+
+        if (update_step != null) {
+            update_step.setEnd_date(updateStepDto.getEnd_date());
+            return this.stepRepository.save(update_step);
+        } else {
+            // 후에 exception 처리 필요
+            return null;
+        }
     }
 }
