@@ -7,6 +7,7 @@ import com.example.pohab.Service.RecruitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -46,5 +47,11 @@ public class RecruitmentController {
     @PutMapping("/step/{step_id}")
     public Step updateStep(@PathVariable("step_id") Integer step_id, @RequestBody UpdateStepDto updateStepDto) {
         return this.recruitService.updateStep(step_id, updateStepDto);
+    }
+
+    // 모집 일정(step) 삭제하기
+    @DeleteMapping("/step/{step_id}")
+    public void deleteStep(@PathVariable("step_id") Integer step_id) {
+        this.recruitService.deleteStep(step_id);
     }
 }
