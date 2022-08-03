@@ -41,4 +41,8 @@ public class RecruitService {
     public List<Step> getAllStep() {
         return this.stepRepository.findAll();
     }
+
+    public List<Step> getPartyStep(String party_id) {
+        return this.stepRepository.findAllByParty_Id(party_id);
+    }
 }
