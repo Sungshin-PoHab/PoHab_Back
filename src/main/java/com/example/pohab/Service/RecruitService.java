@@ -24,6 +24,7 @@ public class RecruitService {
 
     }
 
+    // 모집 일정(step) 생성
     public List<Step> createStep(String party_id, ArrayList<CreateStepDto> createStepDto) {
         ArrayList<Step> steps = new ArrayList<>();
 
@@ -39,13 +40,17 @@ public class RecruitService {
         return this.stepRepository.saveAll(steps);
     }
 
+    // 모집 일정(step) 전체 읽어오기
     public List<Step> getAllStep() {
         return this.stepRepository.findAll();
     }
 
+    // 모집 일정(step) 소속(party) 별로 읽어오기
     public List<Step> getPartyStep(String party_id) {
         return this.stepRepository.findAllByParty_Id(party_id);
     }
+
+    // 모집 일정(step) 날짜 수정하기
 
     public Step updateStep(Integer step_id, UpdateStepDto updateStepDto) {
         Step update_step = this.stepRepository.findById(step_id).orElse(null);

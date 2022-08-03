@@ -9,7 +9,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 import org.springframework.web.bind.annotation.*;
 
-import javax.ws.rs.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,21 +24,25 @@ public class RecruitmentController {
         this.recruitService = recruitService;
     }
 
+    // 모집 일정(step) 생성
     @PostMapping("/{party_id}")
     public List<Step> createStep(@PathVariable("party_id") String party_id, @RequestBody ArrayList<CreateStepDto> createStepDto) {
         return this.recruitService.createStep(party_id, createStepDto);
     }
 
+    // 모집 일정(step) 전체 읽어오기
     @GetMapping("/step")
     public List<Step> getAllStep() {
         return this.recruitService.getAllStep();
     }
 
+    // 모집 일정(step) 소속(party) 별로 읽어오기
     @GetMapping("/step/{party_id}")
     public List<Step> getPartyStep(@PathVariable("party_id") String party_id) {
         return this.recruitService.getPartyStep(party_id);
     }
 
+    // 모집 일정(step) 날짜 수정하기
     @PutMapping("/step/{step_id}")
     public Step updateStep(@PathVariable("step_id") Integer step_id, @RequestBody UpdateStepDto updateStepDto) {
         return this.recruitService.updateStep(step_id, updateStepDto);
