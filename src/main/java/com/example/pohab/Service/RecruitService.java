@@ -51,7 +51,6 @@ public class RecruitService {
     }
 
     // 모집 일정(step) 날짜 수정하기
-
     public Step updateStep(Integer step_id, UpdateStepDto updateStepDto) {
         Step update_step = this.stepRepository.findById(step_id).orElse(null);
 
@@ -62,5 +61,10 @@ public class RecruitService {
             // 후에 exception 처리 필요
             return null;
         }
+    }
+
+    // 모집 일정(step) 삭제하기
+    public void deleteStep(Integer step_id) {
+        this.stepRepository.deleteById(step_id);
     }
 }
