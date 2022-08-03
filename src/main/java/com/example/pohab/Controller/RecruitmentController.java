@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,5 +32,10 @@ public class RecruitmentController {
     @GetMapping("/step")
     public List<Step> getAllStep() {
         return this.recruitService.getAllStep();
+    }
+
+    @GetMapping("/step/{party_id}")
+    public List<Step> getPartyStep(@PathVariable("party_id") String party_id) {
+        return this.recruitService.getPartyStep(party_id);
     }
 }
