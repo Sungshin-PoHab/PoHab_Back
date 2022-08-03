@@ -1,6 +1,7 @@
 package com.example.pohab.Controller;
 
 import com.example.pohab.DTO.CreateStepDto;
+import com.example.pohab.DTO.UpdateStepDto;
 import com.example.pohab.Entity.Step;
 import com.example.pohab.Service.RecruitService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,5 +38,10 @@ public class RecruitmentController {
     @GetMapping("/step/{party_id}")
     public List<Step> getPartyStep(@PathVariable("party_id") String party_id) {
         return this.recruitService.getPartyStep(party_id);
+    }
+
+    @PutMapping("/step/{step_id}")
+    public Step updateStep(@PathVariable("step_id") Integer step_id, @RequestBody UpdateStepDto updateStepDto) {
+        return this.recruitService.updateStep(step_id, updateStepDto);
     }
 }
