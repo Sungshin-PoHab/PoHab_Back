@@ -9,6 +9,5 @@ import lombok.Setter;
 public class PartyEnrollDTO {
     private String name;
     private String category;
-    private Integer personnel;
     private Integer nth;
 }

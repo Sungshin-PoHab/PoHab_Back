@@ -17,7 +17,7 @@ public class PartyService {
         Party party = new Party();
 
         String nth = partyEnrollDTO.getNth().toString();
-        String partyID = partyEnrollDTO.getName() + nth;
+        String partyID = partyEnrollDTO.getName() + '-' + nth;
 
         int leftLimit = 97; // letter 'a'
         int rightLimit = 122; // letter 'z'
@@ -31,7 +31,6 @@ public class PartyService {
         party.setId(partyID);
         party.setCategory(partyEnrollDTO.getCategory());
         party.setCode(code);
-        party.setPersonnel(partyEnrollDTO.getPersonnel());
         party.setName(partyEnrollDTO.getName());
 
         partyRepository.save(party);
