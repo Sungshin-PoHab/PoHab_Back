@@ -25,7 +25,12 @@ public class GradingStatusService {
 
     /** 부서별 채점 현황 가져오기 */
     public List<GradingStatus> getGradingStatusByDepartment(Department department) {
-            return gradingStatusRepository.getGradingStatusByDepartment(department);
+        return gradingStatusRepository.getGradingStatusByDepartment(department);
+    }
+
+    /** 지원별 채점한 운영진 수 세기 */
+    public int countGradedByDepartment(ApplyStatus applyStatus) {
+        return gradingStatusRepository.countGradingStatusByApplyId(applyStatus);
     }
 
 }
