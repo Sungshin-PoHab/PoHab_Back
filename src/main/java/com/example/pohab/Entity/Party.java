@@ -15,27 +15,23 @@ import javax.persistence.*;
 public class Party {
     //필드
     @Id
-    @Column(unique = true, length = 25, nullable = false)
+    @Column(unique = true, length = 50, nullable = false)
     private String id;
 
-    @Column(length = 25, nullable = false)
+    @Column(length = 50, nullable = false)
     private String name;
 
     @Column(length = 25, nullable = false)
     private String category;
-
-    @Column(length = 25, nullable = false)
-    private Integer personnel; // 모집 인원
 
     @Column(length = 10, nullable = false)
     private String code;
 
     //빌더
     @Builder
-    public Party(String name, String category, Integer personnel, String code) {
+    public Party(String name, String category, String code) {
         this.name = name;
         this.category = category;
-        this.personnel = personnel;
         this.code = code;
     }
 }
