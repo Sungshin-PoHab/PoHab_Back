@@ -1,5 +1,6 @@
 package com.example.pohab.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "party")
 public class Party {
     //필드
@@ -26,7 +28,7 @@ public class Party {
 
     @Column(length = 10, nullable = false)
     private String code;
-
+    
     //빌더
     @Builder
     public Party(String name, String category, String code) {
