@@ -38,8 +38,8 @@ public class DepartmentService {
         for (Step step : allStep) {
             StepDateDto stepDateDto = StepDateDto.builder()
                     .step(step.getStep())
-                    .startDate(step.getStart_date())
-                    .endDate(step.getEnd_date())
+                    .startDate(step.getStartDate())
+                    .endDate(step.getEndDate())
                     .build();
             stepDateDtos.add(stepDateDto);
         }
@@ -48,10 +48,8 @@ public class DepartmentService {
 
         for (Department department : allDepartment) {
             int 지원자_수 = applyStatusService.countApplyStatusByDepartment(department);
-            System.out.println("지원자 수: " + 지원자_수);
             double 경쟁률 = 지원자_수 / (double) department.getPersonnel();
-            System.out.println("모집 인원 수: " + department.getPersonnel());
-            System.out.println("경쟁률: " + 경쟁률);
+
             MainDto mainDto = MainDto.builder()
                     .party(department.getParty().getName())
                     .competition(경쟁률)
