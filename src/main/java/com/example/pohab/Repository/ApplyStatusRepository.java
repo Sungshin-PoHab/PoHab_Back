@@ -2,6 +2,7 @@ package com.example.pohab.Repository;
 
 import com.example.pohab.Entity.ApplyStatus;
 import com.example.pohab.Entity.Department;
+import com.example.pohab.Entity.Step;
 import com.example.pohab.Entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -19,6 +20,10 @@ public interface ApplyStatusRepository extends JpaRepository<ApplyStatus, Intege
     /** 특정 부서의 지원 현황 */
     @Query("select a from ApplyStatus a where a.department = :department")
     List<ApplyStatus> getAllApplyStatusByDepartment(@Param("department") Department department);
+
+    /** 특정 부서 & 특정 단계의 지원 현황 */
+    @Query("select a from ApplyStatus a where a.department = :department and a.step = :step")
+    List<ApplyStatus> getAllApplyStatusByDeNStep(@Param("department") Department department, @Param("step") Step step);
 
     /** 특정 부서별 지원 인원 세기 */
     @Query("select count(distinct a.user) from ApplyStatus a where a.department = :department")
