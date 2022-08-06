@@ -46,6 +46,11 @@ public class StepService {
         return this.stepRepository.findAll();
     }
 
+    // 기본키로 모집 일정(step) 읽어오기
+    public Step getStepById(int id) {
+        return this.stepRepository.findById(id).get();
+    }
+
     // 모집 일정(step) 소속(party) 별로 읽어오기
     public List<Step> getPartyStep(String party_id) {
         return this.stepRepository.findAllByParty_Id(party_id);
