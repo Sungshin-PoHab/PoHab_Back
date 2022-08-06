@@ -33,6 +33,7 @@ public class RecruitService {
             Step step = new Step();
             step.setParty(party);
             step.setStep(stepDto.getStep());
+            step.setStartDate(stepDto.getStartDate());
             step.setEndDate(stepDto.getEndDate());
             steps.add(step);
         }
