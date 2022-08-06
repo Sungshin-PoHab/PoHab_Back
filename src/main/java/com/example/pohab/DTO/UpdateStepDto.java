@@ -6,5 +6,6 @@ import java.time.LocalDateTime;
 
 @Data
 public class UpdateStepDto {
-    private LocalDateTime end_date;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
 }
