@@ -33,7 +33,7 @@ public class RecruitService {
             Step step = new Step();
             step.setParty(party);
             step.setStep(stepDto.getStep());
-            step.setEnd_date(stepDto.getEnd_date());
+            step.setEndDate(stepDto.getEnd_date());
             steps.add(step);
         }
 
@@ -55,7 +55,7 @@ public class RecruitService {
         Step update_step = this.stepRepository.findById(step_id).orElse(null);
 
         if (update_step != null) {
-            update_step.setEnd_date(updateStepDto.getEnd_date());
+            update_step.setEndDate(updateStepDto.getEnd_date());
             return this.stepRepository.save(update_step);
         } else {
             // 후에 exception 처리 필요
