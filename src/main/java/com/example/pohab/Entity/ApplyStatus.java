@@ -2,6 +2,7 @@ package com.example.pohab.Entity;
 
 import com.example.pohab.Enum.IsPass;
 import com.example.pohab.Enum.IsSubmit;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class ApplyStatus {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
