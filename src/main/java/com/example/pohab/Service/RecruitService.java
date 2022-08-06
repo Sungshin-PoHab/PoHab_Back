@@ -57,6 +57,7 @@ public class RecruitService {
 
         if (update_step != null) {
             update_step.setEndDate(updateStepDto.getEndDate());
+            update_step.setStartDate(updateStepDto.getStartDate());
             return this.stepRepository.save(update_step);
         } else {
             // 후에 exception 처리 필요
