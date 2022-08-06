@@ -1,15 +1,18 @@
 package com.example.pohab.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Getter
+@Getter @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "pass")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@Table(name = "step")
 public class Step {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
