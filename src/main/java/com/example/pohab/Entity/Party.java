@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class Party {
     //필드
     @Id
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, length = 25, nullable = false)
     private String id;
 
     @Column(length = 25, nullable = false)

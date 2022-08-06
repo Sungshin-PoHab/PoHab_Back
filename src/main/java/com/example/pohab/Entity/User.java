@@ -1,5 +1,6 @@
 package com.example.pohab.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-//@Table(name = "user")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User {
     //필드
     @Id
@@ -22,16 +23,12 @@ public class User {
     private String email;
 
     @Column(length = 50, nullable = false)
-    private String password;
-
-    @Column(length = 50, nullable = false)
     private String phone;
 
     //빌더
     @Builder
-    public User(String email, String password, String phone) {
+    public User(String email, String phone) {
         this.email = email;
-        this.password = password;
         this.phone = phone;
     }
 }
