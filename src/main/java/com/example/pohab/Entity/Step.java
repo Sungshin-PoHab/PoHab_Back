@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -22,6 +23,8 @@ public class Step {
     private Party party;
 
     private int step;
+
+    private LocalDate start_date;
 
     private LocalDateTime end_date;
 }
