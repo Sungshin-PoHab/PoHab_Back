@@ -13,12 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class RecruitService {
+public class StepService {
     private StepRepository stepRepository;
     private PartyRepository partyRepository;
 
     @Autowired
-    public RecruitService(StepRepository stepRepository, PartyRepository partyRepository) {
+    public StepService(StepRepository stepRepository, PartyRepository partyRepository) {
         this.stepRepository = stepRepository;
         this.partyRepository = partyRepository;
 
