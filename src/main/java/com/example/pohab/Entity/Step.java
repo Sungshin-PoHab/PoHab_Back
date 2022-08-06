@@ -25,7 +25,7 @@ public class Step {
 
     private int step;
 
-    private LocalDate startDate;
+    private LocalDateTime startDate;
 
     private LocalDateTime endDate;
 }
