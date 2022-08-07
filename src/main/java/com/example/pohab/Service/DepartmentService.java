@@ -89,4 +89,9 @@ public class DepartmentService {
             return this.departmentRepository.saveAll(departments);
         }
     }
+
+    // 모집 부서(department) 소속(party) 별로 읽어오기
+    public List<Department> getPartyDepartment(String party_id) {
+        return this.departmentRepository.findAllByParty_Id(party_id);
+    }
 }

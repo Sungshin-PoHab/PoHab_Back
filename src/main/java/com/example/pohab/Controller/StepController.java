@@ -60,4 +60,10 @@ public class StepController {
     public List<Department> createDepartment(@PathVariable("party_id") String party_id, @RequestBody ArrayList<CreateDepartmentDto> createDepartmentDtos) {
         return this.departmentService.createDepartment(party_id, createDepartmentDtos);
     }
+
+   // 모집 부서(department) 소속(party) 별로 읽어오기
+   @GetMapping("/department/{party_id}")
+   public List<Department> getPartyDepartment(@PathVariable("party_id") String party_id) {
+        return this.departmentService.getPartyDepartment(party_id);
+   }
 }
