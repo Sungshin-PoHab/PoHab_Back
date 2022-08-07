@@ -5,16 +5,12 @@ import com.example.pohab.DTO.UpdateStepDto;
 import com.example.pohab.Entity.Step;
 import com.example.pohab.Service.StepService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@EnableEurekaServer
-@SpringBootApplication
 @RequestMapping(path = "/recruit")
 public class StepController {
     private StepService stepService;
