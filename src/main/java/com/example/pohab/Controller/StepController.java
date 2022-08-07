@@ -73,4 +73,10 @@ public class StepController {
     public Department updateDepartment(@PathVariable("department_id") Integer department_id, @RequestBody UpdateDepartmentDto updateDepartmentDto) {
         return this.departmentService.updateDepartment(department_id, updateDepartmentDto);
     }
+
+    // 모집 부서(department) 삭제하기
+    @DeleteMapping("/department/{department_id}")
+    public void deleteDepartment(@PathVariable("department_id") Integer department_id) {
+        this.departmentService.deleteDepartment(department_id);
+    }
 }

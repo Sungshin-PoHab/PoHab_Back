@@ -110,4 +110,8 @@ public class DepartmentService {
             return this.departmentRepository.save(update_department);
         }
     }
+
+    public void deleteDepartment(Integer department_id) {
+        this.departmentRepository.deleteById(department_id);
+    }
 }
