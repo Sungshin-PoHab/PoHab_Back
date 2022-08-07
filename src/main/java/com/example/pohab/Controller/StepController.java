@@ -2,6 +2,7 @@ package com.example.pohab.Controller;
 
 import com.example.pohab.DTO.CreateDepartmentDto;
 import com.example.pohab.DTO.CreateStepDto;
+import com.example.pohab.DTO.UpdateDepartmentDto;
 import com.example.pohab.DTO.UpdateStepDto;
 import com.example.pohab.Entity.Department;
 import com.example.pohab.Entity.Step;
@@ -66,4 +67,10 @@ public class StepController {
    public List<Department> getPartyDepartment(@PathVariable("party_id") String party_id) {
         return this.departmentService.getPartyDepartment(party_id);
    }
+
+   // 모집 부서(department) 수정하기
+    @PutMapping("department/{department_id}")
+    public Department updateDepartment(@PathVariable("department_id") Integer department_id, @RequestBody UpdateDepartmentDto updateDepartmentDto) {
+        return this.departmentService.updateDepartment(department_id, updateDepartmentDto);
+    }
 }

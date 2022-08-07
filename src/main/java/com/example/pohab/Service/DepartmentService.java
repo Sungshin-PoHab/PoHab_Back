@@ -3,6 +3,7 @@ package com.example.pohab.Service;
 import com.example.pohab.DTO.CreateDepartmentDto;
 import com.example.pohab.DTO.MainDto;
 import com.example.pohab.DTO.StepDateDto;
+import com.example.pohab.DTO.UpdateDepartmentDto;
 import com.example.pohab.Entity.Department;
 import com.example.pohab.Entity.Party;
 import com.example.pohab.Entity.Step;
@@ -93,5 +94,20 @@ public class DepartmentService {
     // 모집 부서(department) 소속(party) 별로 읽어오기
     public List<Department> getPartyDepartment(String party_id) {
         return this.departmentRepository.findAllByParty_Id(party_id);
+    }
+
+    // 모집 부서(department) 수정하기
+    public Department updateDepartment(Integer department_id, UpdateDepartmentDto updateDepartmentDto) {
+        Department update_department = this.departmentRepository.findById(department_id).orElse(null);
+
+        if (update_department == null) {
+            // 추후 오류 처리 필요
+            System.out.println("error");
+            return null;
+        } else {
+            update_department.setDepartment(updateDepartmentDto.getDepartment());
+            update_department.setPersonnel(updateDepartmentDto.getPersonnel());
+            return this.departmentRepository.save(update_department);
+        }
     }
 }
