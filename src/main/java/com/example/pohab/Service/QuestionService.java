@@ -64,4 +64,9 @@ public class QuestionService {
             return this.questionRepository.save(update_question);
         }
     }
+
+    // 채점 양식(question) 삭제하기
+    public void deleteQuestion(Integer question_id) {
+        this.questionRepository.deleteById(question_id);
+    }
 }

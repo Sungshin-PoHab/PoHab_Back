@@ -37,4 +37,10 @@ public class QuestionController {
     public Question updateQuestion(@PathVariable("question_id") Integer question_id, @RequestBody() UpdateQuestionDto updateQuestionDto) {
         return this.questionService.updateQuestion(question_id, updateQuestionDto);
     }
+
+    // 채점 양식(question) 삭제하기
+    @DeleteMapping("/{question_id}")
+    public void deleteQuestion(@PathVariable("question_id") Integer question_id) {
+        this.questionService.deleteQuestion(question_id);
+    }
 }
