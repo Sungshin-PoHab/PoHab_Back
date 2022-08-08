@@ -12,7 +12,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface ApplyStatusRepository extends JpaRepository<ApplyStatus, Integer> {
-
     /** 특정 사용자의 지원 현황 */
     @Query("select a from ApplyStatus a where a.user = :user")
     List<ApplyStatus> getAllApplyStatusByUser(@Param("user") User user);
