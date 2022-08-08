@@ -2,6 +2,7 @@ package com.example.pohab.Service;
 
 import com.example.pohab.Entity.ApplyStatus;
 import com.example.pohab.Entity.Department;
+import com.example.pohab.Entity.Step;
 import com.example.pohab.Entity.User;
 import com.example.pohab.Repository.ApplyStatusRepository;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +34,11 @@ public class ApplyStatusService {
     /** 부서별 지원 현황 리스트 가져오기 */
     public List<ApplyStatus> getAllApplyStatusByDepartment(Department department) {
         return applyStatusRepository.getAllApplyStatusByDepartment(department);
+    }
+
+    /** 부서별 & 단계별 지원 현황 리스트 가져오기 */
+    public List<ApplyStatus> getAllApplyStatusByDeNStep(Department department, Step step) {
+        return applyStatusRepository.getAllApplyStatusByDeNStep(department, step);
     }
 
     /** 부서별 지원 인원 세기 */
