@@ -12,12 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class AnswerService {
+public class QuestionService {
     private DepartmentRepository departmentRepository;
     private QuestionRepository questionRepository;
 
     @Autowired
-    public AnswerService(DepartmentRepository departmentRepository, QuestionRepository questionRepository) {
+    public QuestionService(DepartmentRepository departmentRepository, QuestionRepository questionRepository) {
         this.departmentRepository = departmentRepository;
         this.questionRepository = questionRepository;
     }
