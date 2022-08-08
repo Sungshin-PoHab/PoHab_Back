@@ -43,4 +43,9 @@ public class QuestionService {
 
         return this.questionRepository.saveAll(questions);
     }
+
+    // 채점 양식(Question) 부서(Department) 별로 가져오기
+    public List<Question> getQuestionByDepartment(Integer department_id) {
+        return this.questionRepository.findAllByDepartment_id(department_id);
+    }
 }
