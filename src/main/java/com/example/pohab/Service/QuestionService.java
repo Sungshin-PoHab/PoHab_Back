@@ -1,6 +1,7 @@
 package com.example.pohab.Service;
 
 import com.example.pohab.DTO.CreateQuestionDto;
+import com.example.pohab.DTO.UpdateQuestionDto;
 import com.example.pohab.Entity.Department;
 import com.example.pohab.Entity.Question;
 import com.example.pohab.Repository.DepartmentRepository;
@@ -47,5 +48,20 @@ public class QuestionService {
     // 채점 양식(Question) 부서(Department) 별로 가져오기
     public List<Question> getQuestionByDepartment(Integer department_id) {
         return this.questionRepository.findAllByDepartment_id(department_id);
+    }
+
+    // 채점 양식(Question) 질문 Or 제한 길이 수정하기
+    public Question updateQuestion(Integer question_id, UpdateQuestionDto updateQuestionDto) {
+        Question update_question = this.questionRepository.findById(question_id).orElse(null);
+
+        if (update_question == null) {
+            // 추후 에러처리 필요
+            System.out.println("error");
+            return null;
+        } else {
+            update_question.setQuestion(updateQuestionDto.getQuestion());
+            update_question.setMaxLength(updateQuestionDto.getMaxLength());
+            return this.questionRepository.save(update_question);
+        }
     }
 }
