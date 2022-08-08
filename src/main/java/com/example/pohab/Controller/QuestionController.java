@@ -1,6 +1,7 @@
 package com.example.pohab.Controller;
 
 import com.example.pohab.DTO.CreateQuestionDto;
+import com.example.pohab.DTO.UpdateQuestionDto;
 import com.example.pohab.Entity.Question;
 import com.example.pohab.Service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +26,15 @@ public class QuestionController {
         return this.questionService.createQuestion(createQuestionDtos);
     }
 
-    // 지원서 양식(question)
+    // 지원서 양식(question) 부서 별로 가져오기
     @GetMapping("")
     public List<Question> getQuestionByDepartment(@RequestParam("department") Integer department_id) {
         return this.questionService.getQuestionByDepartment(department_id);
+    }
+
+    // 지원서 양식(question) 질문/제한길이 수정하기
+    @PutMapping("/{question_id}")
+    public Question updateQuestion(@PathVariable("question_id") Integer question_id, @RequestBody() UpdateQuestionDto updateQuestionDto) {
+        return this.questionService.updateQuestion(question_id, updateQuestionDto);
     }
 }
