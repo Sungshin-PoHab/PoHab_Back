@@ -1,7 +1,7 @@
 package com.example.pohab.Service;
 
-import com.example.pohab.Dto.MainDto;
-import com.example.pohab.Dto.StepDateDto;
+import com.example.pohab.DTO.MainDto;
+import com.example.pohab.DTO.StepDateDto;
 import com.example.pohab.Entity.Department;
 import com.example.pohab.Entity.Step;
 import com.example.pohab.Repository.DepartmentRepository;
@@ -47,12 +47,12 @@ public class DepartmentService {
         List<MainDto> mainDtos = new ArrayList<>();
 
         for (Department department : allDepartment) {
-            int 지원자_수 = applyStatusService.countApplyStatusByDepartment(department);
-            double 경쟁률 = 지원자_수 / (double) department.getPersonnel();
+            int applicantNum = applyStatusService.countApplyStatusByDepartment(department);
+            double competition = applicantNum / (double) department.getPersonnel();
 
             MainDto mainDto = MainDto.builder()
                     .party(department.getParty().getName())
-                    .competition(경쟁률)
+                    .competition(competition)
                     .stepDateDtos(stepDateDtos)
                     .build();
             mainDtos.add(mainDto);
