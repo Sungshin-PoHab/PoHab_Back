@@ -14,7 +14,7 @@ public class QuestionController {
     private final QuestionService questionService;
 
     @Autowired
-    public AnswerController(QuestionService questionService) {
+    public QuestionController(QuestionService questionService) {
         this.questionService = questionService;
     }
 
@@ -23,5 +23,11 @@ public class QuestionController {
     @PostMapping("")
     public List<Question> createQuestion(@RequestBody() List<CreateQuestionDto> createQuestionDtos) {
         return this.questionService.createQuestion(createQuestionDtos);
+    }
+
+    // 지원서 양식(question)
+    @GetMapping("")
+    public List<Question> getQuestionByDepartment(@RequestParam("department") Integer department_id) {
+        return this.questionService.getQuestionByDepartment(department_id);
     }
 }
