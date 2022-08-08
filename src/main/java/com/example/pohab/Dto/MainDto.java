@@ -1,6 +1,6 @@
-package com.example.pohab.Dto;
+package com.example.pohab.DTO;
 
-import com.example.pohab.Dto.StepDateDto;
+import com.example.pohab.DTO.StepDateDto;
 import lombok.*;
 
 import java.util.List;

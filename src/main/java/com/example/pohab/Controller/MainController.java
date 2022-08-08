@@ -1,6 +1,6 @@
 package com.example.pohab.Controller;
 
-import com.example.pohab.Dto.MainDto;
+import com.example.pohab.DTO.MainDto;
 import com.example.pohab.Service.DepartmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
