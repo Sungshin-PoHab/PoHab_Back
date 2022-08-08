@@ -1,10 +1,9 @@
 package com.example.pohab.Controller;
 
-import com.example.pohab.Dto.ApplyStatusForStaffDto;
-import com.example.pohab.Entity.ApplyStatus;
+import com.example.pohab.DTO.ApplyStatusForStaffDto;
+import com.example.pohab.DTO.GradingResultDto;
 import com.example.pohab.Entity.Department;
 import com.example.pohab.Entity.Step;
-import com.example.pohab.Service.ApplyStatusService;
 import com.example.pohab.Service.DepartmentService;
 import com.example.pohab.Service.GradingStatusService;
 import com.example.pohab.Service.StepService;
@@ -21,11 +20,12 @@ public class GradingController {
     private final DepartmentService departmentService;
     private final StepService stepService;
 
-    @GetMapping("/applyStatus/forStaff/{department}/{step}")
-    public ApplyStatusForStaffDto applyStatusForStaff(@PathVariable("department") int department, @PathVariable("step") int step) {
+    /** 합격 여부 통보 */
+    @GetMapping("/gradingStatus/announcePNP/{department}/{step}")
+    public GradingResultDto announcePNP(@PathVariable("department") int department, @PathVariable("step") int step) {
         Department departmentById = departmentService.getDepartmentById(department);
         Step stepById = stepService.getStepById(step);
-        return  gradingStatusService.entityToApplyStatusForStaffDto(departmentById, stepById);
+        return  gradingStatusService.announcePNP(departmentById, stepById);
     }
 
 }
