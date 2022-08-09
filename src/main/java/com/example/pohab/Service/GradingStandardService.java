@@ -64,4 +64,9 @@ public class GradingStandardService {
             return this.gradingStandardRepository.save(update_standard);
         }
     }
+
+    // 채점 양식(grading standard) 삭제하기
+    public void deleteGradingStandard(Integer standard_id) {
+        this.gradingStandardRepository.deleteById(standard_id);
+    }
 }
