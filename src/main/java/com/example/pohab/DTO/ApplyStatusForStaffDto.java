@@ -1,4 +1,4 @@
-package com.example.pohab.Dto;
+package com.example.pohab.DTO;
 
 import lombok.*;
 
