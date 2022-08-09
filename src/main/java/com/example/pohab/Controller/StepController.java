@@ -1,8 +1,12 @@
 package com.example.pohab.Controller;
 
+import com.example.pohab.DTO.CreateDepartmentDto;
 import com.example.pohab.DTO.CreateStepDto;
+import com.example.pohab.DTO.UpdateDepartmentDto;
 import com.example.pohab.DTO.UpdateStepDto;
+import com.example.pohab.Entity.Department;
 import com.example.pohab.Entity.Step;
+import com.example.pohab.Service.DepartmentService;
 import com.example.pohab.Service.StepService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +18,12 @@ import java.util.List;
 @RequestMapping(path = "/recruit")
 public class StepController {
     private StepService stepService;
+    private DepartmentService departmentService;
 
     @Autowired
-    public StepController(StepService stepService) {
+    public StepController(StepService stepService, DepartmentService departmentService) {
         this.stepService = stepService;
+        this.departmentService = departmentService;
     }
 
     // 모집 일정(step) 생성
@@ -48,5 +54,29 @@ public class StepController {
     @DeleteMapping("/step/{step_id}")
     public void deleteStep(@PathVariable("step_id") Integer step_id) {
         this.stepService.deleteStep(step_id);
+    }
+
+    // 모집 부서(department) 생성하기
+    @PostMapping("/department/{party_id}")
+    public List<Department> createDepartment(@PathVariable("party_id") String party_id, @RequestBody ArrayList<CreateDepartmentDto> createDepartmentDtos) {
+        return this.departmentService.createDepartment(party_id, createDepartmentDtos);
+    }
+
+   // 모집 부서(department) 소속(party) 별로 읽어오기
+   @GetMapping("/department/{party_id}")
+   public List<Department> getPartyDepartment(@PathVariable("party_id") String party_id) {
+        return this.departmentService.getPartyDepartment(party_id);
+   }
+
+   // 모집 부서(department) 수정하기
+    @PutMapping("department/{department_id}")
+    public Department updateDepartment(@PathVariable("department_id") Integer department_id, @RequestBody UpdateDepartmentDto updateDepartmentDto) {
+        return this.departmentService.updateDepartment(department_id, updateDepartmentDto);
+    }
+
+    // 모집 부서(department) 삭제하기
+    @DeleteMapping("/department/{department_id}")
+    public void deleteDepartment(@PathVariable("department_id") Integer department_id) {
+        this.departmentService.deleteDepartment(department_id);
     }
 }

@@ -1,10 +1,14 @@
 package com.example.pohab.Service;
 
-import com.example.pohab.Dto.MainDto;
-import com.example.pohab.Dto.StepDateDto;
+import com.example.pohab.DTO.CreateDepartmentDto;
+import com.example.pohab.DTO.MainDto;
+import com.example.pohab.DTO.StepDateDto;
+import com.example.pohab.DTO.UpdateDepartmentDto;
 import com.example.pohab.Entity.Department;
+import com.example.pohab.Entity.Party;
 import com.example.pohab.Entity.Step;
 import com.example.pohab.Repository.DepartmentRepository;
+import com.example.pohab.Repository.PartyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +20,7 @@ import java.util.List;
 public class DepartmentService {
 
     private final DepartmentRepository departmentRepository;
+    private final PartyRepository partyRepository;
     private final StepService stepService;
     private final ApplyStatusService applyStatusService;
 
@@ -61,4 +66,50 @@ public class DepartmentService {
         return mainDtos;
     }
 
+
+    // 모집 부서(department) 생성
+    public List<Department> createDepartment(String party_id, ArrayList<CreateDepartmentDto> createDepartmentDtos) {
+        ArrayList<Department> departments = new ArrayList<>();
+        Party party = this.partyRepository.findById(party_id).orElse(null);
+
+        if (party == null) {
+            // 추후 에러처리 필요
+            System.out.println("error");
+            // 임시 반환값 꼭 수정!
+            return null;
+        } else {
+            for (CreateDepartmentDto departmentDto: createDepartmentDtos) {
+                Department department = new Department();
+                department.setParty(party);
+                department.setDepartment(departmentDto.getDepartment());
+                department.setPersonnel(departmentDto.getPersonnel());
+                departments.add(department);
+            }
+            return this.departmentRepository.saveAll(departments);
+        }
+    }
+
+    // 모집 부서(department) 소속(party) 별로 읽어오기
+    public List<Department> getPartyDepartment(String party_id) {
+        return this.departmentRepository.findAllByParty_Id(party_id);
+    }
+
+    // 모집 부서(department) 수정하기
+    public Department updateDepartment(Integer department_id, UpdateDepartmentDto updateDepartmentDto) {
+        Department update_department = this.departmentRepository.findById(department_id).orElse(null);
+
+        if (update_department == null) {
+            // 추후 오류 처리 필요
+            System.out.println("error");
+            return null;
+        } else {
+            update_department.setDepartment(updateDepartmentDto.getDepartment());
+            update_department.setPersonnel(updateDepartmentDto.getPersonnel());
+            return this.departmentRepository.save(update_department);
+        }
+    }
+
+    public void deleteDepartment(Integer department_id) {
+        this.departmentRepository.deleteById(department_id);
+    }
 }
