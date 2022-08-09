@@ -2,6 +2,7 @@ package com.example.pohab.Controller;
 
 import com.example.pohab.DTO.ApplyStatusForStaffDto;
 import com.example.pohab.DTO.CreateGradingStandardDto;
+import com.example.pohab.DTO.UpdateGradingStandardDto;
 import com.example.pohab.Entity.*;
 import com.example.pohab.Service.*;
 import lombok.RequiredArgsConstructor;
@@ -36,5 +37,11 @@ public class GradingController {
     @GetMapping("/standard/{step_id}")
     public List<GradingStandard> getGradingStandardByStepDepartment(@PathVariable("step_id") Integer step_id, @RequestParam("department") Integer department_id) {
         return this.gradingStandardService.getGradingStandardByStepDepartment(step_id, department_id);
+    }
+
+    // 채점 양식(grading Standard) 수정하기
+    @PutMapping("/standard/{standard_id}")
+    public GradingStandard updateGradingStandard(@PathVariable("standard_id") Integer standard_id, @RequestBody() UpdateGradingStandardDto updateGradingStandardDto) {
+        return this.gradingStandardService.updateGradingStandard(standard_id, updateGradingStandardDto);
     }
 }
