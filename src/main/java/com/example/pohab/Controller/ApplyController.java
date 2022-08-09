@@ -1,8 +1,7 @@
 package com.example.pohab.Controller;
 
 import com.example.pohab.DTO.ApplyStatusForStaffDto;
-import com.example.pohab.Entity.Department;
-import com.example.pohab.Entity.Step;
+import com.example.pohab.Entity.*;
 import com.example.pohab.Repository.DepartmentRepository;
 import com.example.pohab.Service.DepartmentService;
 import com.example.pohab.Service.GradingStatusService;
@@ -12,8 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.pohab.DTO.ApplyUserForPartyDTO;
-import com.example.pohab.Entity.Answer;
-import com.example.pohab.Entity.ApplyStatus;
 import com.example.pohab.Service.AnswerService;
 import com.example.pohab.Service.ApplyStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,5 +62,14 @@ public class ApplyController {
         Step stepById = stepService.getStepById(step);
         return  gradingStatusService.entityToApplyStatusForStaffDto(departmentById, stepById);
     }
+
+    /** 동아리 지원 내역 **/
+    @PostMapping("/myApply")
+    public List<ApplyStatus> myApply(@RequestBody User user) {
+        return applyStatusService.getAllApplyStatusByUser(user);
+    }
+
+    /** 동아리 지원서 관리 **/
+
 
 }
