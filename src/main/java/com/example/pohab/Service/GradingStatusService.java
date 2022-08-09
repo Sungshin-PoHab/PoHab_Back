@@ -1,7 +1,7 @@
 package com.example.pohab.Service;
 
-import com.example.pohab.Dto.ApplicantDto;
-import com.example.pohab.Dto.ApplyStatusForStaffDto;
+import com.example.pohab.DTO.ApplicantDto;
+import com.example.pohab.DTO.ApplyStatusForStaffDto;
 import com.example.pohab.Entity.ApplyStatus;
 import com.example.pohab.Entity.Department;
 import com.example.pohab.Entity.GradingStatus;
