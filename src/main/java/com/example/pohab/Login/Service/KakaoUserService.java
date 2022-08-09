@@ -3,18 +3,17 @@ package com.example.pohab.Login.Service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.example.pohab.Login.JWT.JwtProperties;
-import com.example.pohab.Login.Model.KakaoUser;
+import com.example.pohab.Entity.User;
 import com.example.pohab.Login.Model.Oauth.KakaoProfile;
 import com.example.pohab.Login.Model.OauthToken;
 import com.example.pohab.Login.Repository.KakaoUserRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.catalina.core.ApplicationContext;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
-import org.springframework.core.env.Environment;
 import org.springframework.core.env.MutablePropertySources;
 import org.springframework.http.*;
 import org.springframework.http.client.ClientHttpResponse;
@@ -28,8 +27,14 @@ import java.io.IOException;
 import java.util.Date;
 
 @Service
-@PropertySource("classpath:/login-key.properties")
+@PropertySource("classpath:/application-API-KEY.properties")
 public class KakaoUserService {
+
+    @Value("${client_id}")
+    private String clientId;
+
+    @Value("${client_secret}")
+    private String clientSecret;
 
     private final KakaoUserRepository kakaoUserRepository;
 
@@ -56,19 +61,10 @@ public class KakaoUserService {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("grant_type", "authorization_code");
 
-        //Context 생성
-        ConfigurableApplicationContext context = new GenericXmlApplicationContext();
-        //Environment 생성
-        ConfigurableEnvironment env = context.getEnvironment();
-        //PropertySource 다 가져오기
-        MutablePropertySources propertySources = env.getPropertySources();
-        System.out.println(env.getProperty("client_id"));
-        System.out.println(env.getProperty("client_secret"));
-
-        params.add("client_id", env.getProperty("client_id")); // REST API 키
+        params.add("client_id", this.clientId); // REST API 키
         params.add("redirect_uri", "http://localhost:3000/oauth");
         params.add("code", code);
-        params.add("client_secret", env.getProperty("client_secret"));
+        params.add("client_secret", this.clientSecret);
 
         // HttpHeader와 httpBody를 하나의 객체에 담는다.
         HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest =
@@ -95,24 +91,23 @@ public class KakaoUserService {
         return oauthToken;
     }
 
-    public KakaoUser saveUser(String token) {
+    public User saveUser(String token) {
 
         // 토큰으로 카카오 프로필 가져오기
         KakaoProfile profile = findProfile(token);
 
         // 회원가입 된 회원인지 찾기 (db에 이미 저장돼 있는지)
-        KakaoUser kakaoUser = kakaoUserRepository.findByKakaoEmail(profile.getKakao_account().getEmail());
+        User user = kakaoUserRepository.findUserByEmail(profile.getKakao_account().getEmail());
 
-        if(kakaoUser == null) {
-            kakaoUser = KakaoUser.builder()
-                    .kakaoId(profile.getId())
-                    .userName(profile.getKakao_account().getProfile().getNickname())
-                    .kakaoEmail(profile.getKakao_account().getEmail())
-                    .userRole("ROLE_USER").build();
+        if(user == null) {
+            user = User.builder()
+                    .name(profile.getKakao_account().getProfile().getNickname())
+                    .email(profile.getKakao_account().getEmail())
+                    .build();
 
-            kakaoUserRepository.save(kakaoUser);
+            kakaoUserRepository.save(user);
         }
-        return kakaoUser;
+        return user;
     }
 
     /**
@@ -153,45 +148,32 @@ public class KakaoUserService {
     public String saveUserAndGetToken(String token) {
         KakaoProfile profile = findProfile(token);
 
-        KakaoUser kakaoUser = kakaoUserRepository.findByKakaoEmail(profile.getKakao_account().getEmail());
+        User user = kakaoUserRepository.findUserByEmail(profile.getKakao_account().getEmail());
 
-        if(kakaoUser == null) {
-            kakaoUser = KakaoUser.builder()
-                    .kakaoId(profile.getId())
-                    .userName(profile.getKakao_account().getProfile().getNickname())
-                    .kakaoEmail(profile.getKakao_account().getEmail())
-                    .userRole("ROLE_USER").build();
+        if(user == null) {
+            user = User.builder()
+                    .name(profile.getKakao_account().getProfile().getNickname())
+                    .email(profile.getKakao_account().getEmail())
+                    .build();
 
-            kakaoUserRepository.save(kakaoUser);
+            kakaoUserRepository.save(user);
         }
 
-        return createToken(kakaoUser); // JWT 토큰 반환
+        return createToken(user); // JWT 토큰 반환
     }
 
     // String 형의 JWT 토큰 반환
-    public String createToken(KakaoUser kakaoUser) {
+    public String createToken(User user) {
 
         String jwtToken = JWT.create()
-                .withSubject(kakaoUser.getKakaoEmail())
+                .withSubject(user.getEmail())
                 .withExpiresAt(new Date(System.currentTimeMillis()+ JwtProperties.EXPIRATION_TIME))
-                .withClaim("kakaoEmail", kakaoUser.getKakaoEmail())
-                .withClaim("nickname", kakaoUser.getUserName())
+                .withClaim("id", user.getId())
+                .withClaim("email", user.getEmail())
+                .withClaim("name", user.getName())
                 .sign(Algorithm.HMAC512(JwtProperties.SECRET));
 
         return jwtToken;
-    }
-
-     // 사용자 아이디 리턴
-    public String getUserEmail(String token) {
-        // 토큰으로 카카오 프로필 가져오기
-        KakaoProfile profile = findProfile(token);
-        return profile.getKakao_account().getEmail();
-    }
-
-     // 사용자 이름 리턴
-    public String getUserName(String userId) {
-        KakaoUser byKakaoEmail = kakaoUserRepository.findByKakaoEmail(userId);
-        return byKakaoEmail.getUserName();
     }
 
 }
