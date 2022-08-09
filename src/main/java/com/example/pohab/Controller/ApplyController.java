@@ -69,7 +69,4 @@ public class ApplyController {
         return applyStatusService.getAllApplyStatusByUser(user);
     }
 
-    /** 동아리 지원서 관리 **/
-
-
 }
