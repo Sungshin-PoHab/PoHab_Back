@@ -4,6 +4,7 @@ import com.example.pohab.DTO.ApplicantDto;
 import com.example.pohab.DTO.ApplicantGradingDto;
 import com.example.pohab.DTO.ApplyStatusForStaffDto;
 import com.example.pohab.DTO.GradingResultDto;
+import com.example.pohab.DTO.ApplyStatusForStaffDto;
 import com.example.pohab.Entity.ApplyStatus;
 import com.example.pohab.Entity.Department;
 import com.example.pohab.Entity.GradingStatus;

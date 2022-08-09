@@ -20,7 +20,9 @@ public class Answer {
     private Integer id;
 
     // 추후 관계 설정 수정
-    private Integer apply_id;
+    @ManyToOne(cascade = CascadeType.REMOVE, targetEntity = ApplyStatus.class)
+    @JoinColumn(name = "apply_id")
+    private ApplyStatus applyStatus;
 
     @OneToOne(cascade = CascadeType.REMOVE, targetEntity = Question.class)
     @JoinColumn(name = "question_id")
