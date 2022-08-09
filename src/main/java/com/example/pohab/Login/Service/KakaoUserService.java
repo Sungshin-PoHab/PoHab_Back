@@ -9,6 +9,13 @@ import com.example.pohab.Login.Model.OauthToken;
 import com.example.pohab.Login.Repository.KakaoUserRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.catalina.core.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.GenericXmlApplicationContext;
+import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.core.env.Environment;
+import org.springframework.core.env.MutablePropertySources;
 import org.springframework.http.*;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.stereotype.Service;
@@ -21,6 +28,7 @@ import java.io.IOException;
 import java.util.Date;
 
 @Service
+@PropertySource("classpath:/login-key.properties")
 public class KakaoUserService {
 
     private final KakaoUserRepository kakaoUserRepository;
@@ -47,10 +55,20 @@ public class KakaoUserService {
 
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("grant_type", "authorization_code");
-        params.add("client_id", "ba4b466f7d657b6bf1baded5271f2b51"); // REST API 키
+
+        //Context 생성
+        ConfigurableApplicationContext context = new GenericXmlApplicationContext();
+        //Environment 생성
+        ConfigurableEnvironment env = context.getEnvironment();
+        //PropertySource 다 가져오기
+        MutablePropertySources propertySources = env.getPropertySources();
+        System.out.println(env.getProperty("client_id"));
+        System.out.println(env.getProperty("client_secret"));
+
+        params.add("client_id", env.getProperty("client_id")); // REST API 키
         params.add("redirect_uri", "http://localhost:3000/oauth");
         params.add("code", code);
-        params.add("client_secret", "0tAlqVu5164SpGakh0s20nCk4sigTRqO");
+        params.add("client_secret", env.getProperty("client_secret"));
 
         // HttpHeader와 httpBody를 하나의 객체에 담는다.
         HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest =
