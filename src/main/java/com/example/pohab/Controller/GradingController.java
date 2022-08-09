@@ -19,11 +19,12 @@ public class GradingController {
     private final StepService stepService;
     private final GradingStandardService gradingStandardService;
 
-    @GetMapping("/applyStatus/forStaff/{department}/{step}")
-    public ApplyStatusForStaffDto applyStatusForStaff(@PathVariable("department") int department, @PathVariable("step") int step) {
+    /** 합격 여부 통보 */
+    @GetMapping("/gradingStatus/announcePNP/{department}/{step}")
+    public GradingResultDto announcePNP(@PathVariable("department") int department, @PathVariable("step") int step) {
         Department departmentById = departmentService.getDepartmentById(department);
         Step stepById = stepService.getStepById(step);
-        return  gradingStatusService.entityToApplyStatusForStaffDto(departmentById, stepById);
+        return  gradingStatusService.announcePNP(departmentById, stepById);
     }
 
 
