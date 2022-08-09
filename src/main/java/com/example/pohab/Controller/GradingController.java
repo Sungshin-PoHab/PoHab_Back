@@ -44,4 +44,10 @@ public class GradingController {
     public GradingStandard updateGradingStandard(@PathVariable("standard_id") Integer standard_id, @RequestBody() UpdateGradingStandardDto updateGradingStandardDto) {
         return this.gradingStandardService.updateGradingStandard(standard_id, updateGradingStandardDto);
     }
+
+    // 채점 양식(grading standard) 삭제하기
+    @DeleteMapping("/standard/{standard_id}")
+    public void deleteGradingStandard(@PathVariable("standard_id") Integer standard_id) {
+        this.gradingStandardService.deleteGradingStandard(standard_id);
+    }
 }
