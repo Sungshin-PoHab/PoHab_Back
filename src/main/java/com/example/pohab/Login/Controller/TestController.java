@@ -11,7 +11,8 @@ public class TestController {
 
     // 사용자 ID 받아오기
     @GetMapping("/result")
-    public void result() {
+    public void requestSomething2(@RequestHeader(JwtProperties.HEADER_STRING) String authorization) {
+        System.out.println("authorization: " + authorization);
     }
 
 }
