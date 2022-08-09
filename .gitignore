@@ -40,6 +40,7 @@ out/
 # DB info file
 src/main/resources/application.properties
 src/main/resources/application-oauth.properties
+src/main/resources/login-key.properties
 
 # test
 src/test
