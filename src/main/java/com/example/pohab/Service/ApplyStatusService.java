@@ -65,7 +65,7 @@ public class ApplyStatusService {
     }
 
     /** 부서에 지원하기 **/
-    public ApplyStatus applyUserTForarty(ApplyUserForPartyDTO applyUserForPartyDTO) {
+    public ApplyStatus applyUserTForParty(ApplyUserForPartyDTO applyUserForPartyDTO) {
         ApplyStatus applystatus = new ApplyStatus();
 
         applystatus.setUser(userRepository.getOne(applyUserForPartyDTO.getUser()));
