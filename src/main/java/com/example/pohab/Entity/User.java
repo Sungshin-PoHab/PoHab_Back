@@ -20,14 +20,18 @@ public class User {
     private Integer id;
 
     @Column(unique = true, length = 50, nullable = false)
+    private String name;
+
+    @Column(unique = true, length = 50, nullable = false)
     private String email;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 50, nullable = true)
     private String phone;
 
     //빌더
     @Builder
-    public User(String email, String phone) {
+    public User(String name, String email, String phone) {
+        this.name = name;
         this.email = email;
         this.phone = phone;
     }
