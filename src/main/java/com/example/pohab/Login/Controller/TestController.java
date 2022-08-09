@@ -10,9 +10,8 @@ import org.springframework.web.bind.annotation.*;
 public class TestController {
 
     // 사용자 ID 받아오기
-    @GetMapping("/header")
-    public void requestSomething2(@RequestHeader(JwtProperties.USER_EMAIL) String userEmail) {
-        System.out.println("user email: " + userEmail);
+    @GetMapping("/result")
+    public void result() {
     }
 
 }
