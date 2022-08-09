@@ -1,6 +1,6 @@
 package com.example.pohab.Controller;
 
-import com.example.pohab.Dto.ApplyStatusForStaffDto;
+import com.example.pohab.DTO.ApplyStatusForStaffDto;
 import com.example.pohab.Entity.ApplyStatus;
 import com.example.pohab.Entity.Department;
 import com.example.pohab.Entity.Step;

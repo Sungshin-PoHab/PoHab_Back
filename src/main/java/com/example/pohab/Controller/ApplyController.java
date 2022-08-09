@@ -4,7 +4,9 @@ import com.example.pohab.DTO.ApplyUserForPartyDTO;
 import com.example.pohab.DTO.CreateStepDto;
 import com.example.pohab.DTO.PartyEnrollDTO;
 import com.example.pohab.Entity.ApplyStatus;
+import com.example.pohab.Entity.Question;
 import com.example.pohab.Entity.Step;
+import com.example.pohab.Service.AnswerService;
 import com.example.pohab.Service.ApplyStatusService;
 import com.example.pohab.Service.StepService;
 import lombok.RequiredArgsConstructor;
@@ -20,10 +22,12 @@ import java.util.List;
 public class ApplyController {
 
     private ApplyStatusService applyStatusService;
+    private AnswerService answerService;
 
     @Autowired
-    public ApplyController(ApplyStatusService applyStatusService) {
+    public ApplyController(ApplyStatusService applyStatusService, AnswerService answerService) {
         this.applyStatusService = applyStatusService;
+        this.answerService = answerService;
     }
 
     // 모집 일정(step) 생성
@@ -31,4 +35,5 @@ public class ApplyController {
     public ApplyStatus saveStatus(@RequestBody ApplyUserForPartyDTO applyUserForPartyDTO) {
         return this.applyStatusService.applyUserTForarty(applyUserForPartyDTO);
     }
+
 }
