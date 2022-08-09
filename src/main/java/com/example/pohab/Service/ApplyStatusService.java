@@ -5,11 +5,13 @@ import com.example.pohab.Entity.ApplyStatus;
 import com.example.pohab.Entity.Department;
 import com.example.pohab.Entity.Step;
 import com.example.pohab.Entity.User;
+import com.example.pohab.Enum.IsSubmit;
 import com.example.pohab.Repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -74,4 +76,19 @@ public class ApplyStatusService {
         return applyStatusRepository.save(applystatus);
     }
 
+    /** 최종 제출 하기 **/
+    public ApplyStatus statusUpdateToSubmit(Integer user_id, Integer department_id, Integer step_id){
+        User user = this.userRepository.getOne(user_id);
+        Department department = this.departmentRepository.getOne(department_id);
+        Step step = this.stepRepository.getOne(step_id);
+
+        //기존의 applyStatus 불러오기
+        ApplyStatus applyStatus = this.applyStatusRepository.getApplyStatusByUserDepartmentStep(user, department, step);
+        //제출 시각과 상태 저장
+        applyStatus.setSub_date( LocalDateTime.now() );
+        applyStatus.setIs_submit(IsSubmit.submission);
+        //수정 사항 저장
+        applyStatusRepository.save(applyStatus);
+        return applyStatus;
+    }
 }
