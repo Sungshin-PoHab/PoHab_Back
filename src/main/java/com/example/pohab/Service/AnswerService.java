@@ -3,13 +3,13 @@ package com.example.pohab.Service;
 import com.example.pohab.Entity.Answer;
 import com.example.pohab.Entity.Question;
 import com.example.pohab.Repository.AnswerRepository;
-import com.example.pohab.Repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -48,4 +48,21 @@ public class AnswerService {
         return this.answerRepository.save(answer);
     }
 
+    /** 답변 임시저장 **/
+    public List<Answer> tempSaveAnswer(List<Answer> answers) {
+        List<Answer> newAnswers = new ArrayList<>();
+        for(Answer answer: answers) {
+            Optional<Answer> optionalAnswer = this.answerRepository.findById(answer.getId());
+
+            if (optionalAnswer.isPresent()) {
+                Answer pastAnswer = optionalAnswer.get();
+                pastAnswer.setAnswer(answer.getAnswer());
+                this.answerRepository.save(pastAnswer);
+                newAnswers.add(pastAnswer);
+            } else {
+                return null;
+            }
+        }
+        return newAnswers;
+    }
 }
