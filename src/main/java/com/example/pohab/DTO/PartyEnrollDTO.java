@@ -1,7 +1,6 @@
 package com.example.pohab.DTO;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Getter
