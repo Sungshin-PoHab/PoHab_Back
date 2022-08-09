@@ -70,25 +70,39 @@ public class ApplyStatusService {
     public ApplyStatus applyUserTForParty(ApplyUserForPartyDTO applyUserForPartyDTO) {
         ApplyStatus applystatus = new ApplyStatus();
 
-        applystatus.setUser(userRepository.getOne(applyUserForPartyDTO.getUser()));
-        applystatus.setDepartment(departmentRepository.getOne(applyUserForPartyDTO.getDepartment()));
-        applystatus.setStep(stepRepository.getOne(applyUserForPartyDTO.getStep()));
-        return applyStatusRepository.save(applystatus);
+        User user = this.userRepository.findById(applyUserForPartyDTO.getUser()).orElse(null);
+        Department department = this.departmentRepository.findById(applyUserForPartyDTO.getDepartment()).orElse(null);
+        Step step = this.stepRepository.findById(applyUserForPartyDTO.getStep()).orElse(null);
+
+        try{
+            applystatus.setUser(user);
+            applystatus.setDepartment(department);
+            applystatus.setStep(step);
+            return applyStatusRepository.save(applystatus);
+
+        } catch (Exception e){
+            return null;
+        }
+
     }
 
     /** 최종 제출 하기 **/
     public ApplyStatus statusUpdateToSubmit(Integer user_id, Integer department_id, Integer step_id){
-        User user = this.userRepository.getOne(user_id);
-        Department department = this.departmentRepository.getOne(department_id);
-        Step step = this.stepRepository.getOne(step_id);
+        User user = this.userRepository.findById(user_id).orElse(null);
+        Department department = this.departmentRepository.findById(department_id).orElse(null);
+        Step step = this.stepRepository.findById(step_id).orElse(null);
 
-        //기존의 applyStatus 불러오기
-        ApplyStatus applyStatus = this.applyStatusRepository.getApplyStatusByUserDepartmentStep(user, department, step);
-        //제출 시각과 상태 저장
-        applyStatus.setSub_date( LocalDateTime.now() );
-        applyStatus.setIs_submit(IsSubmit.submission);
-        //수정 사항 저장
-        applyStatusRepository.save(applyStatus);
-        return applyStatus;
+        try {
+            //기존의 applyStatus 불러오기
+            ApplyStatus applyStatus = this.applyStatusRepository.getApplyStatusByUserDepartmentStep(user, department, step);
+            //제출 시각과 상태 저장
+            applyStatus.setSub_date( LocalDateTime.now() );
+            applyStatus.setIs_submit(IsSubmit.submission);
+            //수정 사항 저장
+            applyStatusRepository.save(applyStatus);
+            return applyStatus;
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

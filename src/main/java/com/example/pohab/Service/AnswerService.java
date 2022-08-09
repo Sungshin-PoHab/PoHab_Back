@@ -17,17 +17,17 @@ public class AnswerService {
     private QuestionService questionService;
     private ApplyStatusRepository applyStatusRepository;
     private UserRepository userRepository;
-    private DepartmentService departmentService;
-    private StepService stepService;
+    private DepartmentRepository departmentRepository;
+    private StepRepository stepRepository;
 
     @Autowired
-    public AnswerService(AnswerRepository answerRepository, QuestionService questionService, ApplyStatusRepository applyStatusRepository, UserRepository userRepository, DepartmentService departmentService, StepService stepService){
+    public AnswerService(AnswerRepository answerRepository, QuestionService questionService, ApplyStatusRepository applyStatusRepository, UserRepository userRepository, DepartmentRepository departmentRepository, StepRepository stepRepository){
         this.answerRepository = answerRepository;
         this.questionService = questionService;
         this.applyStatusRepository = applyStatusRepository;
         this.userRepository = userRepository;
-        this.departmentService = departmentService;
-        this.stepService = stepService;
+        this.departmentRepository = departmentRepository;
+        this.stepRepository = stepRepository;
     }
 
     /** 처음 지원할 때 빈 답변 저장 **/
@@ -75,11 +75,16 @@ public class AnswerService {
 
     /** 제출 상태 검색 **/
     public ApplyStatus statusSearch(Integer user_id, Integer department_id, Integer step_id) {
-        User user = this.userRepository.getOne(user_id);
-        Department department = this.departmentService.getDepartmentById(department_id);
-        Step step = this.stepService.getStepById(step_id);
+        User user = this.userRepository.findById(user_id).orElse(null);
+        Department department = this.departmentRepository.findById(department_id).orElse(null);
+        Step step = this.stepRepository.findById(step_id).orElse(null);
 
-        return this.applyStatusRepository.getApplyStatusByUserDepartmentStep(user, department, step);
+        try{
+            return this.applyStatusRepository.getApplyStatusByUserDepartmentStep(user, department, step);
+        } catch (Exception e){
+            return null;
+        }
+
     }
 
     /** 지원 현황에 대한 답변 검색 **/
