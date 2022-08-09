@@ -27,7 +27,7 @@ public class ApplyController {
     @PostMapping("/saveStatus")
     public ApplyStatus saveStatus(@RequestBody ApplyUserForPartyDTO applyUserForPartyDTO) {
         ApplyStatus applyStatus = this.applyStatusService.applyUserTForParty(applyUserForPartyDTO);
-        this.answerService.saveEmptyAnswers(applyStatus.getId(), applyStatus.getDepartment().getId());
+        this.answerService.saveEmptyAnswers(applyStatus, applyStatus.getDepartment().getId());
         return applyStatus;
     }
 
