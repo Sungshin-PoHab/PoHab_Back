@@ -25,6 +25,8 @@ public class CorsConfig {
         config.setMaxAge(3600L);
         config.addExposedHeader(JwtProperties.HEADER_STRING); // 헤더의 Authorization 항목에 접근 가능
         config.addExposedHeader(JwtProperties.USER_EMAIL); // 헤더의 userId 항목에 접근 가능
+        config.addExposedHeader(JwtProperties.USER_ID);
+        config.addExposedHeader(JwtProperties.USER_NAME);
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
