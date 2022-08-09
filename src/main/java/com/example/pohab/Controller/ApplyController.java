@@ -3,6 +3,7 @@ package com.example.pohab.Controller;
 import com.example.pohab.DTO.ApplyStatusForStaffDto;
 import com.example.pohab.Entity.Department;
 import com.example.pohab.Entity.Step;
+import com.example.pohab.Repository.DepartmentRepository;
 import com.example.pohab.Service.DepartmentService;
 import com.example.pohab.Service.GradingStatusService;
 import com.example.pohab.Service.StepService;
@@ -28,14 +29,17 @@ public class ApplyController {
 
     private ApplyStatusService applyStatusService;
     private AnswerService answerService;
-    private final GradingStatusService gradingStatusService;
-    private final DepartmentService departmentService;
-    private final StepService stepService;
+    private GradingStatusService gradingStatusService;
+    private DepartmentService departmentService;
+    private StepService stepService;
 
     @Autowired
-    public ApplyController(ApplyStatusService applyStatusService, AnswerService answerService) {
+    public ApplyController(ApplyStatusService applyStatusService, AnswerService answerService, GradingStatusService gradingStatusService, DepartmentService departmentService, StepService stepService) {
         this.applyStatusService = applyStatusService;
         this.answerService = answerService;
+        this.gradingStatusService = gradingStatusService;
+        this.departmentService = departmentService;
+        this.stepService = stepService;
     }
 
     // 동아리 지원 -> apply_status에 저장 및 answer null로 초기화.
