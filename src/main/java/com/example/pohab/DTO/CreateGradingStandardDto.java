@@ -1,2 +1,8 @@
-package com.example.pohab.DTO;public class CreateGradingStandardDto {
+package com.example.pohab.DTO;
+
+import lombok.Data;
+
+@Data
+public class CreateGradingStandardDto {
+    private String gradingStandard;
 }
