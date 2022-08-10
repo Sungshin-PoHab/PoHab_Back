@@ -1,15 +1,16 @@
 package com.example.pohab.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
 
-@Entity
-@Getter
+@Getter @Setter
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 public class User {
 
     @Id

@@ -1,15 +1,13 @@
 package com.example.pohab.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,5 +26,5 @@ public class GradingStandard {
     private Step step;
 
     @Column(nullable = false)
-    private String grading_standard; // 채점 질문
+    private String gradingStandard; // 채점 질문
 }

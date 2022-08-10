@@ -2,7 +2,6 @@ package com.example.pohab.DTO;
 
 import lombok.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
