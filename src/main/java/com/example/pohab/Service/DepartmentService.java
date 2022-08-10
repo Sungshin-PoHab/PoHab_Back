@@ -52,12 +52,12 @@ public class DepartmentService {
         List<MainDto> mainDtos = new ArrayList<>();
 
         for (Department department : allDepartment) {
-            int 지원자_수 = applyStatusService.countApplyStatusByDepartment(department);
-            double 경쟁률 = 지원자_수 / (double) department.getPersonnel();
+            int applicantNum = applyStatusService.countApplyStatusByDepartment(department);
+            double competition = applicantNum / (double) department.getPersonnel();
 
             MainDto mainDto = MainDto.builder()
                     .party(department.getParty().getName())
-                    .competition(경쟁률)
+                    .competition(competition)
                     .stepDateDtos(stepDateDtos)
                     .build();
             mainDtos.add(mainDto);
