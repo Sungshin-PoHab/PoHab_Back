@@ -38,8 +38,8 @@ out/
 
 # properties
 src/main/resources/application.properties
-src/main/resources/application-API-KEY.properties.properties
-src/main/resources/application-oauth.properties.properties
+src/main/resources/application-oauth.properties
+src/main/resources/application-API-KEY.properties
 
 # test
 src/test

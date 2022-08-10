@@ -5,28 +5,23 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
+@Getter @Setter
+@Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User {
-    //필드
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(name = "id")
+    private Long id;
 
-    @Column(unique = true, length = 50, nullable = false)
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "email")
     private String email;
 
-    @Column(length = 50, nullable = false)
-    private String phone;
-
-    //빌더
-    @Builder
-    public User(String email, String phone) {
-        this.email = email;
-        this.phone = phone;
-    }
 }
