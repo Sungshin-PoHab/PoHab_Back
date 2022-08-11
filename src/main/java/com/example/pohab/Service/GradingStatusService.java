@@ -57,7 +57,7 @@ public class GradingStatusService {
         for (ApplyStatus as : allApplyStatusByDeNStep) {
             double avg = calculAvg(as); // 평균 점수
             ApplicantDto applicantDto = ApplicantDto.builder()
-                    .name(as.getUser().getEmail()) // 지원자 이메일
+                    .name(as.getUser().getName()) // 지원자 이름
                     .score(avg) // 평균 점수
                     .scoredStaffNum(countGradedByDepartment(as)) // 채점한 운영진 수
                     .build();

@@ -2,7 +2,6 @@ package com.example.pohab.Controller;
 
 import com.example.pohab.DTO.ApplyStatusForStaffDto;
 import com.example.pohab.Entity.*;
-import com.example.pohab.Repository.DepartmentRepository;
 import com.example.pohab.Service.DepartmentService;
 import com.example.pohab.Service.GradingStatusService;
 import com.example.pohab.Service.StepService;
@@ -56,7 +55,7 @@ public class ApplyController {
     }
   
     /** (운영진 ver.) 지원 현황 */
-    @GetMapping("/applyStatus/forStaff/{department}/{step}")
+    @GetMapping("/forStaff/{department}/{step}")
     public ApplyStatusForStaffDto applyStatusForStaff(@PathVariable("department") int department, @PathVariable("step") int step) {
         Department departmentById = departmentService.getDepartmentById(department);
         Step stepById = stepService.getStepById(step);
