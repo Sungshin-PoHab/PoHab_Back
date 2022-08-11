@@ -46,13 +46,13 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         String token = jwtHeader.replace(JwtProperties.TOKEN_PREFIX, "");
 
-        Long userId = null;
+        Integer userId = null;
         String userEmail = null;
         String userName = null;
 
         try {
             userId = JWT.require(Algorithm.HMAC512(JwtProperties.SECRET)).build().verify(token)
-                    .getClaim("id").asLong();
+                    .getClaim("id").asInt();
 
             userEmail = JWT.require(Algorithm.HMAC512(JwtProperties.SECRET)).build().verify(token)
                     .getClaim("email").asString();
