@@ -79,7 +79,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         request.setAttribute("userId", userId);
         request.setAttribute("userEmail", userEmail);
         request.setAttribute("userName", userName);
-        //여기서 에러나는데 대체 왜 나는지 알 수가 없음 하.
+
         filterChain.doFilter(request, response);
     }
 }
