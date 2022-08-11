@@ -27,7 +27,8 @@ public class PartyController {
 
     @PostMapping("/enroll")
     public Party enrollParty(@RequestBody PartyEnrollDTO partyEnrollDTO) {
-
-        return partyService.enroll(partyEnrollDTO);
+        UserDetailsImpl userDetailsIml = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println(userDetailsIml.getId());
+        return partyService.enroll(userDetailsIml.getId(), partyEnrollDTO);
     }
 }
