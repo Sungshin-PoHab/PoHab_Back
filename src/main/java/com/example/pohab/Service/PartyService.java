@@ -10,8 +10,8 @@ import com.example.pohab.Repository.UserRepository;
 import com.netflix.discovery.converters.Auto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Optional;
+import java.util.List;
 import java.util.Random;
 
 @Service
@@ -69,5 +69,9 @@ public class PartyService {
 
         }
         return party;
+    }
+
+    List<Party> findAll() {
+        return partyRepository.findAll();
     }
 }
