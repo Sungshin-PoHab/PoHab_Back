@@ -6,6 +6,7 @@ import com.example.pohab.Repository.PartyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Random;
 
 @Service
@@ -35,5 +36,9 @@ public class PartyService {
 
         partyRepository.save(party);
         return party;
+    }
+
+    List<Party> findAll() {
+        return partyRepository.findAll();
     }
 }
