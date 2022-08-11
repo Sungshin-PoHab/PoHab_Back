@@ -55,7 +55,7 @@ public class DepartmentService {
             List<String> competitionList = new ArrayList<>();
             for (Department department : allDepartment) {
                 int applicantNum = applyStatusService.countApplyStatusByDepartment(department);
-                double competition = applicantNum / (double) department.getParty().getPersonnel();
+                double competition = applicantNum / (double) department.getPersonnel();
 
                 double scale = Math.pow(10, 2);
                 double competitionTwo = Math.round(competition * scale) / scale; // 소수 두 번째 자리까지
