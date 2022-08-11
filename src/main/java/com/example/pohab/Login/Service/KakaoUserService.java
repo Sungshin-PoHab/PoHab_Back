@@ -180,7 +180,7 @@ public class KakaoUserService {
 
 
     public User getUser(HttpServletRequest request) {
-        Long userId = (Long) request.getAttribute("userId");
+        Integer userId = (Integer) request.getAttribute("userId");
 
         User user = kakaoUserRepository.findById(userId).orElse(null);
 

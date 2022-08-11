@@ -14,13 +14,13 @@ import java.util.Collection;
 @Getter
 @Setter
 public class UserDetailsImpl implements UserDetails {
-    private Long id;
+    private Integer id;
     private String email;
     private String name;
     @JsonIgnore
     private String authority;
 
-    public UserDetailsImpl(Long id, String email, String name) {
+    public UserDetailsImpl(Integer id, String email, String name) {
         this.id = id;
         this.email = email;
         this.name = name;
@@ -51,7 +51,7 @@ public class UserDetailsImpl implements UserDetails {
         return email;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
