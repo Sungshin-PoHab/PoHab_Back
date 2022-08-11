@@ -23,6 +23,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Date;
 
@@ -176,4 +177,12 @@ public class KakaoUserService {
         return jwtToken;
     }
 
+
+    public User getUser(HttpServletRequest request) {
+        Long userId = (Long) request.getAttribute("userId");
+
+        User user = kakaoUserRepository.findById(userId).orElse(null);
+
+        return user;
+    }
 }
