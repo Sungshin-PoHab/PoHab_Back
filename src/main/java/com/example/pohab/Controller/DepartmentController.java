@@ -1,0 +1,28 @@
+package com.example.pohab.Controller;
+
+import com.example.pohab.Entity.Department;
+import com.example.pohab.Service.DepartmentService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RequiredArgsConstructor
+@RestController
+@RequestMapping("/department")
+public class DepartmentController {
+    private DepartmentService departmentService;
+
+    @Autowired
+    public DepartmentController(DepartmentService departmentService) {
+        this.departmentService = departmentService;
+    }
+
+
+    @GetMapping("/{party_id}")
+    public Department findDepartmentsNameByParty(@PathVariable("party_id") String party_id){
+        return this.departmentService.findCommonDepartmentByParty(party_id);
+    }
+}

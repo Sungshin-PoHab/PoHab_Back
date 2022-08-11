@@ -42,6 +42,21 @@ public class DepartmentService {
         return departmentRepository.findDepartmentsByParty(party);
     }
 
+    /** party(소속)별 공통 부서Id 가져오기 **/
+    public Department findCommonDepartmentByParty(String party_id) {
+        Party party = partyRepository.findById(party_id).orElse(null);
+        List<Department> departments = departmentRepository.findDepartmentsByParty(party);
+        Department commonDepartment = new Department();
+
+        for (Department department : departments) {
+            if (department.getDepartment().equals("공통")) {
+                commonDepartment = department;
+                return commonDepartment;
+            }
+        }
+        return null;
+    }
+
     /** department -> mainDto */
     public List<MainDto> entityToMainDto() {
         List<Party> allParty = partyService.findAll();
