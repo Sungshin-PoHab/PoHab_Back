@@ -26,6 +26,7 @@ import org.springframework.web.client.RestTemplate;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 @PropertySource("classpath:/application-API-KEY.properties")
@@ -185,4 +186,5 @@ public class KakaoUserService {
 
         return user;
     }
+
 }
