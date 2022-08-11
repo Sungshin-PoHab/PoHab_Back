@@ -28,7 +28,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { // 추가적�
                 .authorizeRequests() // HttpServletRequest를 사용하는 요청들에 대한 접근 제한 설정
 //                .antMatchers("/oauth/token", "/**").permitAll() // "/oauth/token"에 대한 접근 권한은 인증 없이 접근 허용 -> CORS 문제 해결
 //                .anyRequest().permitAll();
-
                 .antMatchers("/login", "/oauth/token", "/main/**").permitAll() //이 경로는 인증절차 없이 허용
                 .antMatchers("/party/enroll").authenticated()
                 .anyRequest().permitAll()
@@ -36,24 +35,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { // 추가적�
                 .exceptionHandling()
                 .authenticationEntryPoint(new CustomAuthenticationEntryPoint());
 
-//        http.csrf().disable()
-//                .sessionManagement()
-//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//
-//                .and()
-//                .httpBasic().disable()
-//                .formLogin().disable()
-//                .addFilter(corsConfig.corsFilter());
-//
-//        http.authorizeRequests()
-//                .antMatchers("/party/enroll")
-//                .authenticated()
-//                .anyRequest().permitAll()
-//
-//                .and()
-//                //(1)
-//                .exceptionHandling()
-//                .authenticationEntryPoint(new CustomAuthenticationEntryPoint());
 
         http.addFilterBefore(new JwtRequestFilter(), UsernamePasswordAuthenticationFilter.class);
     }
