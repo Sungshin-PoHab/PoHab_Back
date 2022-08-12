@@ -44,9 +44,10 @@ public class ApplyController {
         this.answerService.saveEmptyAnswers(applyStatus, applyStatus.getDepartment().getId());
         //공통&개인정보&설명 부서에 대한 답변 Null로 초기화
         List<Department> departments = this.departmentService.findCommonDepartmentByParty(party.getId());
-        
+
         for (Department department : departments){
-            this.answerService.saveEmptyAnswers(applyStatus, department.getId());
+            if(!department.getDepartment().equals("설명"))
+                this.answerService.saveEmptyAnswers(applyStatus, department.getId());
         }
 
         return applyStatus;
