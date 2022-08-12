@@ -21,6 +21,7 @@ public class DepartmentController {
     }
 
 
+    /** 해당 소속의 공통 부서 반환 **/
     @GetMapping("/{party_id}")
     public Department findDepartmentsNameByParty(@PathVariable("party_id") String party_id){
         return this.departmentService.findCommonDepartmentByParty(party_id);
