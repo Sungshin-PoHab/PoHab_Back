@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/department")
@@ -23,7 +25,7 @@ public class DepartmentController {
 
     /** 해당 소속의 공통 부서 반환 **/
     @GetMapping("/{party_id}")
-    public Department findDepartmentsNameByParty(@PathVariable("party_id") String party_id){
+    public List<Department> findDepartmentsNameByParty(@PathVariable("party_id") String party_id){
         return this.departmentService.findCommonDepartmentByParty(party_id);
     }
 }

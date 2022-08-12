@@ -42,19 +42,20 @@ public class DepartmentService {
         return departmentRepository.findDepartmentsByParty(party);
     }
 
-    /** party(소속)별 공통 부서Id 가져오기 **/
-    public Department findCommonDepartmentByParty(String party_id) {
+    /** party(소속)별 공통 부서Id 가져오기 + 개인정보 부서 & 설명 부서도 가져 옴 **/
+    public List<Department> findCommonDepartmentByParty(String party_id) {
         Party party = partyRepository.findById(party_id).orElse(null);
-        List<Department> departments = departmentRepository.findDepartmentsByParty(party);
-        Department commonDepartment = new Department();
+        //해당 소속의 부서 모두 가져옴
+        List<Department> departments = departmentRepository.findAllByParty_Id(party.getId());
+        List<Department> commonDepartment = new ArrayList<>();
 
+        //부서 중에 공통/개인정보/설명 부서 검색
         for (Department department : departments) {
-            if (department.getDepartment().equals("공통")) {
-                commonDepartment = department;
-                return commonDepartment;
+            if (department.getDepartment().equals("공통") || department.getDepartment().equals("개인정보") || department.getDepartment().equals("설명")) {
+                commonDepartment.add(department);
             }
         }
-        return null;
+        return commonDepartment;
     }
 
     /** department -> mainDto */

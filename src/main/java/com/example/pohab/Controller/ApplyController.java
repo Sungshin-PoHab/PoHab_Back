@@ -42,9 +42,12 @@ public class ApplyController {
         Party party = applyStatus.getDepartment().getParty();
         //지원한 부서에 대한 답변 Null로 초기화
         this.answerService.saveEmptyAnswers(applyStatus, applyStatus.getDepartment().getId());
-        //공통 부서에 대한 답변 Null로 초기화
-        Department department = this.departmentService.findCommonDepartmentByParty(party.getId());
-        this.answerService.saveEmptyAnswers(applyStatus, department.getId());
+        //공통&개인정보&설명 부서에 대한 답변 Null로 초기화
+        List<Department> departments = this.departmentService.findCommonDepartmentByParty(party.getId());
+        
+        for (Department department : departments){
+            this.answerService.saveEmptyAnswers(applyStatus, department.getId());
+        }
 
         return applyStatus;
     }
