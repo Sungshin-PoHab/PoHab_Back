@@ -52,9 +52,9 @@ public class GradingStandardService {
         return this.gradingStandardRepository.saveAll(gradingStandards);
     }
 
-    // 채점 양식(grading Standard) 단계+부서 별로 읽어오기
-    public List<GradingStandard> getGradingStandardByStepDepartment(Integer step_id, Integer department_id) {
-        return this.gradingStandardRepository.findAllByStep_idAndDepartment_id(step_id, department_id);
+    // 채점 양식(grading Standard) 단계별로 읽어오기
+    public List<GradingStandard> getGradingStandardByStep(Integer step_id) {
+        return this.gradingStandardRepository.findAllByStep_id(step_id);
     }
 
     // 채점 양식(grading Standard) 수정하기

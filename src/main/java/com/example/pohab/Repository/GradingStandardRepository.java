@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface GradingStandardRepository extends JpaRepository<GradingStandard, Integer> {
     List<GradingStandard> findAllByStep_idAndDepartment_id(Integer step_id, Integer department_id);
+
+    List<GradingStandard> findAllByStep_id(Integer step_id);
 }
