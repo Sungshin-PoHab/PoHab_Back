@@ -42,6 +42,7 @@ public class StaffService {
                 Staff staff = new Staff();
                 staff.setRole(createStaffDto.getRole());
                 staff.setParty(party);
+                staff.setUser(user);
 
                 return this.staffRepository.save(staff);
             } else {
