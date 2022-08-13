@@ -1,6 +1,5 @@
 package com.example.pohab.Controller;
 
-import com.example.pohab.DTO.ApplyStatusForStaffDto;
 import com.example.pohab.DTO.CreateGradingStandardDto;
 import com.example.pohab.DTO.GradingResultDto;
 import com.example.pohab.DTO.UpdateGradingStandardDto;
@@ -19,15 +18,28 @@ public class GradingController {
     private final DepartmentService departmentService;
     private final StepService stepService;
     private final GradingStandardService gradingStandardService;
+    private final ApplyStatusService applyStatusService;
 
-    /** 합격 여부 통보 */
-    @GetMapping("/gradingStatus/announcePNP/{department}/{step}")
+    /** 합격 여부 통보 (Get) */
+    @GetMapping("/grading/announcePNP/{department}/{step}")
     public GradingResultDto announcePNP(@PathVariable("department") int department, @PathVariable("step") int step) {
         Department departmentById = departmentService.getDepartmentById(department);
         Step stepById = stepService.getStepById(step);
         return  gradingStatusService.announcePNP(departmentById, stepById);
     }
 
+    /** 합격 여부 통보 (Post) */
+    @PostMapping("/grading/announcePNP/{department}/{step}")
+    public String announcePNPPost(@PathVariable("department") int department,
+                                @PathVariable("step") int step, @RequestBody List<String> passList) {
+        System.out.println("합격 리스트: " + passList);
+        for (String pass : passList) {
+            ApplyStatus applyStatus = applyStatusService.getApplyStatusById(Integer.parseInt(pass));
+            applyStatusService.updatePass(applyStatus);
+        }
+        System.out.println("합격 처리 완료했습니다.");
+        return "success";
+    }
 
     // 채점 양식(Grading Standard) 등록
     @PostMapping("/standard/{step_id}")
@@ -52,4 +64,5 @@ public class GradingController {
     public void deleteGradingStandard(@PathVariable("standard_id") Integer standard_id) {
         this.gradingStandardService.deleteGradingStandard(standard_id);
     }
+
 }
