@@ -23,19 +23,25 @@ public class GradingStandardService {
     private final GradingStandardRepository gradingStandardRepository;
 
     // 채점 양식(Grading standard) 등록하기
-    public List<GradingStandard> createGradingStandard(Integer step_id, Integer department_id, List<CreateGradingStandardDto> createGradingStandardDtos) {
+    public List<GradingStandard> createGradingStandard(Integer step_id, List<CreateGradingStandardDto> createGradingStandardDtos) {
         ArrayList<GradingStandard> gradingStandards = new ArrayList<>();
 
         Step step = this.stepRepository.findById(step_id).orElse(null);
-        Department department = this.departmentRepository.findById(department_id).orElse(null);
 
-        if (step == null || department == null) {
+        if (step == null) {
             // 추후 에러처리 필요
             System.out.println("error");
             return null;
         } else {
             for (CreateGradingStandardDto gradingStandardDto: createGradingStandardDtos) {
                 GradingStandard gradingStandard = new GradingStandard();
+                Department department = this.departmentRepository.findById(gradingStandardDto.getDepartmentId()).orElse(null);
+
+                if (department == null) {
+                    // 추후 에러처리 필요
+                    System.out.println("error");
+                    return null;
+                }
                 gradingStandard.setStep(step);
                 gradingStandard.setDepartment(department);
                 gradingStandard.setGradingStandard(gradingStandardDto.getGradingStandard());
