@@ -16,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -47,5 +48,10 @@ public class StaffService {
                 throw new StaffCodeErrorException("잘못된 코드입니다.");
             }
         }
+    }
+
+    // 운영진(Staff) 소속(Party)별로 읽기
+    public List<Staff> getStaffByParty(String party_id) {
+        return this.staffRepository.findAllByParty_id(party_id);
     }
 }

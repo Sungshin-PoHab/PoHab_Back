@@ -7,6 +7,8 @@ import com.example.pohab.Service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/staff")
 public class StaffController {
@@ -22,5 +24,11 @@ public class StaffController {
     public Staff createStaff(@PathVariable("party_id") String party_id,
                              @RequestBody() CreateStaffDto createStaffDto) {
         return this.staffService.createStaff(party_id, createStaffDto);
+    }
+
+    // 운영진(Staff) 소속(Party)별로 읽기
+    @GetMapping("/{party_id}")
+    public List<Staff> getStaffByParty(@PathVariable("party_id") String party_id) {
+        return this.staffService.getStaffByParty(party_id);
     }
 }
