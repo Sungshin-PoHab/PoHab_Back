@@ -187,4 +187,8 @@ public class KakaoUserService {
         return user;
     }
 
+    public User findUserByEmail(String email) {
+        return kakaoUserRepository.findUserByEmail(email);
+    }
+
 }
