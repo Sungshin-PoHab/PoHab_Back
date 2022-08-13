@@ -50,6 +50,10 @@ public class QuestionService {
         return this.questionRepository.findAllByDepartment_id(department_id);
     }
 
+    public List<Question> getQuestionByParty(String party_id) {
+        return this.questionRepository.findAllByDepartment_Party_id(party_id);
+    }
+
     // 채점 양식(Question) 질문 Or 제한 길이 수정하기
     public Question updateQuestion(Integer question_id, UpdateQuestionDto updateQuestionDto) {
         Question update_question = this.questionRepository.findById(question_id).orElse(null);
