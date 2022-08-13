@@ -31,4 +31,10 @@ public class StaffController {
     public List<Staff> getStaffByParty(@PathVariable("party_id") String party_id) {
         return this.staffService.getStaffByParty(party_id);
     }
+
+    // 운영진(Staff) 삭제하기
+    @DeleteMapping("/{staff_id}")
+    public void deleteStaff(@PathVariable("staff_id") Integer staff_id) {
+        this.staffService.deleteStaff(staff_id);
+    }
 }

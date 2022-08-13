@@ -55,4 +55,9 @@ public class StaffService {
     public List<Staff> getStaffByParty(String party_id) {
         return this.staffRepository.findAllByParty_id(party_id);
     }
+
+    // 운영진(Staff) 삭제하기
+    public void deleteStaff(Integer staff_id) {
+        this.staffRepository.deleteById(staff_id);
+    }
 }
