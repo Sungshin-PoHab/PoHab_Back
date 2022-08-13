@@ -9,11 +9,14 @@ import com.example.pohab.Entity.ApplyStatus;
 import com.example.pohab.Entity.Department;
 import com.example.pohab.Entity.GradingStatus;
 import com.example.pohab.Entity.Step;
+import com.example.pohab.Enum.IsPass;
 import com.example.pohab.Repository.GradingStatusRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -22,6 +25,8 @@ public class GradingStatusService {
 
     private final GradingStatusRepository gradingStatusRepository;
     private final ApplyStatusService applyStatusService;
+    private final DepartmentService departmentService;
+    private final StepService stepService;
 
     /** 채점 현황 전체 리스트 가져오기 */
     public List<GradingStatus> getAllGradingStatus() {
@@ -63,14 +68,20 @@ public class GradingStatusService {
                     .build();
             applicantDtoList.add(applicantDto);
         }
-        
+
+        List<Department> partyDepartment = departmentService.getPartyDepartment(department.getParty().getId());// 소속별 부서 리스트 가져오기
+        List<Step> partyStep = stepService.getPartyStep(department.getParty());// 소속별 단계 리스트 가져오기
+
         ApplyStatusForStaffDto dto = ApplyStatusForStaffDto.builder()
                 .party(department.getParty().getId())
                 .department(department.getDepartment())
+                .departmentId(department.getId())
                 .step(step.getStep())
                 .applicantNum(applicantNum)
                 .competition(competition)
                 .applicantDtoList(applicantDtoList)
+                .departmentDtoList(partyDepartment)
+                .stepDtoList(partyStep)
                 .build();
 
         return dto;
@@ -103,15 +114,20 @@ public class GradingStatusService {
             double highScore = getHighScore(gradingStatus); // 지원자별 최고 점수 가져오기
             double lowestScore = getLowestScore(gradingStatus); // 지원자별 최저 점수 가져오기
 
+            boolean isPass = false;
+            if (as.getIs_pass() == IsPass.pass)  isPass = true;
+
             ApplicantGradingDto applicantGradingDto = ApplicantGradingDto.builder()
-                    .name(as.getUser().getEmail())
+                    .name(as.getUser().getName())
                     .score(calculAvg(as))
                     .highScore(highScore)
                     .lowestScore(lowestScore)
+                    .applyId(as.getId())
                     .build();
 
             applicantGradingDtoList.add(applicantGradingDto);
         }
+        Collections.sort(applicantGradingDtoList, new GradingComparator()); // 점수가 높은 순으로 정렬
 
         GradingResultDto gradingResultDto = GradingResultDto.builder()
                 .party(department.getParty().getId())
@@ -170,4 +186,17 @@ public class GradingStatusService {
         return lowestScore;
     }
 
+}
+
+/** 점수가 높은 순으로 정렬 */
+class GradingComparator implements Comparator<ApplicantGradingDto> {
+    @Override
+    public int compare(ApplicantGradingDto o1, ApplicantGradingDto o2) {
+        if (o1.getScore() < o2.getScore()) {
+            return 1;
+        } else if (o1.getScore() > o2.getScore()) {
+            return -1;
+        }
+        return 0;
+    }
 }
