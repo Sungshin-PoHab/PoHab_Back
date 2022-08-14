@@ -186,6 +186,18 @@ public class GradingStatusService {
         return lowestScore;
     }
 
+    /** passList -> db에 합격 처리 & 합격자 이메일 가져오기 */
+    public List<String> updatePassList(List<String> passList) {
+        List<String> emailList = new ArrayList<>();
+        for (String pass : passList) {
+            ApplyStatus applyStatus = applyStatusService.getApplyStatusById(Integer.parseInt(pass));
+            applyStatusService.updatePass(applyStatus);
+            emailList.add(applyStatus.getUser().getEmail());
+        }
+        System.out.println(emailList.toString());
+        return emailList;
+    }
+
 }
 
 /** 점수가 높은 순으로 정렬 */

@@ -30,15 +30,9 @@ public class GradingController {
 
     /** 합격 여부 통보 (Post) */
     @PostMapping("/grading/announcePNP/{department}/{step}")
-    public String announcePNPPost(@PathVariable("department") int department,
+    public List<String> announcePNPPost(@PathVariable("department") int department,
                                 @PathVariable("step") int step, @RequestBody List<String> passList) {
-        System.out.println("합격 리스트: " + passList);
-        for (String pass : passList) {
-            ApplyStatus applyStatus = applyStatusService.getApplyStatusById(Integer.parseInt(pass));
-            applyStatusService.updatePass(applyStatus);
-        }
-        System.out.println("합격 처리 완료했습니다.");
-        return "success";
+        return gradingStatusService.updatePassList(passList);
     }
 
     // 채점 양식(Grading Standard) 등록
