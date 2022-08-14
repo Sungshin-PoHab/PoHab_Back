@@ -60,4 +60,9 @@ public class StaffService {
     public void deleteStaff(Integer staff_id) {
         this.staffRepository.deleteById(staff_id);
     }
+
+    // 운영진(Staff) userId별로 가져오기
+    public List<Staff> findAllByUser(int userId) {
+         return staffRepository.findAllByUser_Id(userId);
+    }
 }
