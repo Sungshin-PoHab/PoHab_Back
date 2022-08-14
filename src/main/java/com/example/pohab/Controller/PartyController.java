@@ -1,21 +1,18 @@
 package com.example.pohab.Controller;
 
 import com.example.pohab.DTO.PartyEnrollDTO;
+import com.example.pohab.DTO.PartyListForStaffDto;
+import com.example.pohab.Entity.Department;
 import com.example.pohab.Entity.Party;
+import com.example.pohab.Entity.Staff;
 import com.example.pohab.Login.Model.UserDetailsImpl;
-import com.example.pohab.Repository.PartyRepository;
 import com.example.pohab.Service.PartyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.http.HttpHeaders;
-import java.security.Security;
-import java.util.Map;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -31,4 +28,12 @@ public class PartyController {
         System.out.println(userDetailsIml.getId());
         return partyService.enroll(userDetailsIml.getId(), partyEnrollDTO);
     }
+
+    /** 소속(party) 운영진(Staff)별로 읽기 */
+    @GetMapping("/staff")
+    public List<PartyListForStaffDto> partyByStaff() {
+        UserDetailsImpl userDetailsIml = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return partyService.getPartyListForStaffDto(userDetailsIml);
+    }
+
 }
