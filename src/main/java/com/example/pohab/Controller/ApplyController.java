@@ -2,16 +2,12 @@ package com.example.pohab.Controller;
 
 import com.example.pohab.DTO.ApplyStatusForStaffDto;
 import com.example.pohab.Entity.*;
-import com.example.pohab.Service.DepartmentService;
-import com.example.pohab.Service.GradingStatusService;
-import com.example.pohab.Service.StepService;
+import com.example.pohab.Service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.pohab.DTO.ApplyUserForPartyDTO;
-import com.example.pohab.Service.AnswerService;
-import com.example.pohab.Service.ApplyStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,7 +38,18 @@ public class ApplyController {
     @PostMapping("/saveStatus")
     public ApplyStatus saveStatus(@RequestBody ApplyUserForPartyDTO applyUserForPartyDTO) {
         ApplyStatus applyStatus = this.applyStatusService.applyUserTForParty(applyUserForPartyDTO);
+        //지원한 소속
+        Party party = applyStatus.getDepartment().getParty();
+        //지원한 부서에 대한 답변 Null로 초기화
         this.answerService.saveEmptyAnswers(applyStatus, applyStatus.getDepartment().getId());
+        //공통&개인정보&설명 부서에 대한 답변 Null로 초기화
+        List<Department> departments = this.departmentService.findCommonDepartmentByParty(party.getId());
+
+        for (Department department : departments){
+            if(!department.getDepartment().equals("설명"))
+                this.answerService.saveEmptyAnswers(applyStatus, department.getId());
+        }
+
         return applyStatus;
     }
 
