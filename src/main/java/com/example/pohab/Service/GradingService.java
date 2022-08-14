@@ -84,4 +84,9 @@ public class GradingService {
             return this.gradingRepository.save(update_grading);
         }
     }
+
+    // 채점(Grading) 채점 현황(Grading Status) 별로 읽기
+    public List<Grading> getGradingByGradingStatus(Integer grading_status_id) {
+        return this.gradingRepository.findAllByGrading_status_id(grading_status_id);
+    }
 }

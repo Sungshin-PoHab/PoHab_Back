@@ -69,6 +69,12 @@ public class GradingController {
         return this.gradingService.createGrading(apply_id, createGradingDtos);
     }
 
+    // 채점(Grading) 채점 현황(Grading Status) 별로 읽기
+    @GetMapping("/grading/{grading_status_id}")
+    public List<Grading> getGradingByGradingStatus(@PathVariable("grading_status_id") Integer grading_status_id) {
+        return this.gradingService.getGradingByGradingStatus(grading_status_id);
+    }
+
     // 채점을 위해 지원현황별로 answer 불러오기
     @GetMapping("/grading/apply/{apply_id}")
     public List<Answer> getAnswerByApplyStatus(@PathVariable("apply_id") Integer apply_id) {
