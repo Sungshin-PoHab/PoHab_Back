@@ -62,11 +62,11 @@ public class GradingController {
     public void deleteGradingStandard(@PathVariable("standard_id") Integer standard_id) {
         this.gradingStandardService.deleteGradingStandard(standard_id);
     }
-
+    
     // 채점(Grading) 등록하기
     @PostMapping("grading/{apply_id}")
-    public void createGrading(@PathVariable("apply_id") Integer apply_id, @RequestBody()List<CreateGradingDto> createGradingDtos) {
-        this.gradingService.createGrading(apply_id, createGradingDtos);
+    public GradingStatus createGrading(@PathVariable("apply_id") Integer apply_id, @RequestBody()List<CreateGradingDto> createGradingDtos) {
+        return this.gradingService.createGrading(apply_id, createGradingDtos);
     }
 
     // 채점을 위해 지원현황별로 answer 불러오기
@@ -80,4 +80,5 @@ public class GradingController {
     public Grading updateGrading(@PathVariable("grading_id") Integer grading_id, @RequestBody() UpdateGradingDto updateGradingDto) {
         return this.gradingService.updateGrading(grading_id, updateGradingDto);
     }
+
 }

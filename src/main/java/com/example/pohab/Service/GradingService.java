@@ -21,7 +21,7 @@ public class GradingService {
     private final StaffRepository staffRepository;
     private final ApplyStatusRepository applyStatusRepository;
 
-    public void createGrading(Integer apply_id, List<CreateGradingDto> createGradingDtos) {
+    public GradingStatus createGrading(Integer apply_id, List<CreateGradingDto> createGradingDtos) {
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Integer user_id = userDetails.getId();
 
@@ -31,6 +31,7 @@ public class GradingService {
         if (staff == null || applyStatus == null) {
             // 추후 에러처리
             System.out.println("error");
+            return null;
         } else {
             GradingStatus gradingStatus = new GradingStatus();
             gradingStatus.setStaff(staff);
@@ -61,7 +62,7 @@ public class GradingService {
                 total_score += new_grading.getScore();
             }
             new_gradingStatus.setScore(total_score);
-            this.gradingStatusRepository.save(new_gradingStatus);
+            return this.gradingStatusRepository.save(new_gradingStatus);
         }
     }
 
