@@ -37,14 +37,14 @@ public class GradingController {
 
     // 채점 양식(Grading Standard) 등록
     @PostMapping("/standard/{step_id}")
-    public List<GradingStandard> createGradingStandard(@PathVariable("step_id") Integer step_id, @RequestParam("department") Integer department_id, @RequestBody() List<CreateGradingStandardDto> createGradingStandardDtos) {
-        return this.gradingStandardService.createGradingStandard(step_id, department_id, createGradingStandardDtos);
+    public List<GradingStandard> createGradingStandard(@PathVariable("step_id") Integer step_id, @RequestBody() List<CreateGradingStandardDto> createGradingStandardDtos) {
+        return this.gradingStandardService.createGradingStandard(step_id, createGradingStandardDtos);
     }
 
-    // 채점 양식(grading Standard) 단계+부서 별로 읽어오기
+    // 채점 양식(grading Standard) 단계별로 읽어오기
     @GetMapping("/standard/{step_id}")
-    public List<GradingStandard> getGradingStandardByStepDepartment(@PathVariable("step_id") Integer step_id, @RequestParam("department") Integer department_id) {
-        return this.gradingStandardService.getGradingStandardByStepDepartment(step_id, department_id);
+    public List<GradingStandard> getGradingStandardByStepDepartment(@PathVariable("step_id") Integer step_id) {
+        return this.gradingStandardService.getGradingStandardByStep(step_id);
     }
 
     // 채점 양식(grading Standard) 수정하기
