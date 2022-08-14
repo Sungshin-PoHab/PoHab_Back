@@ -1,6 +1,7 @@
 package com.example.pohab.Service;
 
 import com.example.pohab.DTO.CreateGradingDto;
+import com.example.pohab.DTO.UpdateGradingDto;
 import com.example.pohab.Entity.*;
 import com.example.pohab.Login.Model.UserDetailsImpl;
 import com.example.pohab.Repository.*;
@@ -61,6 +62,25 @@ public class GradingService {
             }
             new_gradingStatus.setScore(total_score);
             this.gradingStatusRepository.save(new_gradingStatus);
+        }
+    }
+
+    public Grading updateGrading(Integer grading_id, UpdateGradingDto updateGradingDto) {
+        Grading update_grading = this.gradingRepository.findById(grading_id).orElse(null);
+
+        if (update_grading == null) {
+            // error 처리
+            System.out.println("error");
+            return null;
+        } else {
+            GradingStatus gradingStatus = update_grading.getGrading_status();
+            gradingStatus.setScore(gradingStatus.getScore() - update_grading.getScore());
+
+            update_grading.setScore(updateGradingDto.getScore());
+            gradingStatus.setScore(gradingStatus.getScore() + updateGradingDto.getScore());
+
+            this.gradingStatusRepository.save(gradingStatus);
+            return this.gradingRepository.save(update_grading);
         }
     }
 }

@@ -64,4 +64,10 @@ public class GradingController {
     public List<Answer> getAnswerByApplyStatus(@PathVariable("apply_id") Integer apply_id) {
         return this.answerRepository.findAllyByApplyStatus_id(apply_id);
     }
+
+    // 채점(Grading) 수정하기
+    @PutMapping("/grading/{grading_id}")
+    public Grading updateGrading(@PathVariable("grading_id") Integer grading_id, @RequestBody() UpdateGradingDto updateGradingDto) {
+        return this.gradingService.updateGrading(grading_id, updateGradingDto);
+    }
 }
