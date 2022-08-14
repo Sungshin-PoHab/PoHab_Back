@@ -14,6 +14,7 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.socket.messaging.SessionConnectEvent;
@@ -30,6 +31,11 @@ public class WebSocketController {
     private final ChatRepository chatRepository;
     private final ApplyStatusRepository applyStatusRepository;
     private HashMap<String, Integer> sessions = new HashMap<>();
+
+    @GetMapping("/chat/{apply_id}")
+    public List<Chat> getChatByApply(@PathVariable("apply_id") Integer apply_id) {
+        return this.chatRepository.findAllByApplyStatus_id(apply_id);
+    }
 
     @MessageMapping("/chat")
     public void sendMessage(ChatDto chatDto, SimpMessageHeaderAccessor accessor) {
