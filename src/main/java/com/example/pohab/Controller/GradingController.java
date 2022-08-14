@@ -1,9 +1,6 @@
 package com.example.pohab.Controller;
 
-import com.example.pohab.DTO.ApplyStatusForStaffDto;
-import com.example.pohab.DTO.CreateGradingStandardDto;
-import com.example.pohab.DTO.GradingResultDto;
-import com.example.pohab.DTO.UpdateGradingStandardDto;
+import com.example.pohab.DTO.*;
 import com.example.pohab.Entity.*;
 import com.example.pohab.Service.*;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +16,7 @@ public class GradingController {
     private final DepartmentService departmentService;
     private final StepService stepService;
     private final GradingStandardService gradingStandardService;
+    private final GradingService gradingService;
 
     /** 합격 여부 통보 */
     @GetMapping("/gradingStatus/announcePNP/{department}/{step}")
@@ -52,4 +50,11 @@ public class GradingController {
     public void deleteGradingStandard(@PathVariable("standard_id") Integer standard_id) {
         this.gradingStandardService.deleteGradingStandard(standard_id);
     }
+
+    // 채점(Grading) 등록하기
+    @PostMapping("grading/{apply_id}")
+    public void createGrading(@PathVariable("apply_id") Integer apply_id, @RequestBody()List<CreateGradingDto> createGradingDtos) {
+        this.gradingService.createGrading(apply_id, createGradingDtos);
+    }
+
 }
