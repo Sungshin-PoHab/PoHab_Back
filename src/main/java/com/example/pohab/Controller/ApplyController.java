@@ -2,8 +2,10 @@ package com.example.pohab.Controller;
 
 import com.example.pohab.DTO.ApplyStatusForStaffDto;
 import com.example.pohab.Entity.*;
+import com.example.pohab.Login.Model.UserDetailsImpl;
 import com.example.pohab.Service.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -56,8 +58,8 @@ public class ApplyController {
     @PostMapping("/{department_id}/{step_id}")
     public ApplyStatus submitAnswer(@PathVariable("department_id") Integer department_id, @PathVariable("step_id") Integer step_id, @RequestBody List<Answer> answers){
         this.answerService.tempSaveAnswer(answers);
-        //로그인 구현 후에 user 수정해야함
-        return this.applyStatusService.statusUpdateToSubmit(1, department_id, step_id);
+        UserDetailsImpl userDetailsIml = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return this.applyStatusService.statusUpdateToSubmit(userDetailsIml.getId(), department_id, step_id);
     }
   
     /** (운영진 ver.) 지원 현황 */
