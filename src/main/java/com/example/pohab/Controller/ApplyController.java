@@ -2,8 +2,11 @@ package com.example.pohab.Controller;
 
 import com.example.pohab.DTO.ApplyStatusForStaffDto;
 import com.example.pohab.Entity.*;
+import com.example.pohab.Login.Model.UserDetailsImpl;
 import com.example.pohab.Service.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -69,8 +72,10 @@ public class ApplyController {
     }
 
     /** 동아리 지원 내역 **/
-    @PostMapping("/myApply")
-    public List<ApplyStatus> myApply(@RequestBody User user) {
+    @GetMapping("/myApply")
+    public List<ApplyStatus> myApply() {
+        UserDetailsImpl userDetailsIml = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = User.builder().id(userDetailsIml.getId()).email(userDetailsIml.getEmail()).name(userDetailsIml.getName()).build();
         return applyStatusService.getAllApplyStatusByUser(user);
     }
 
