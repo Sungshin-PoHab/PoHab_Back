@@ -64,7 +64,7 @@ public class KakaoUserService {
         params.add("grant_type", "authorization_code");
 
         params.add("client_id", this.clientId); // REST API 키
-        params.add("redirect_uri", "http://localhost:3000/oauth");
+        params.add("redirect_uri", "http://localhost:5000/oauth");
         params.add("code", code);
         params.add("client_secret", this.clientSecret);
 
