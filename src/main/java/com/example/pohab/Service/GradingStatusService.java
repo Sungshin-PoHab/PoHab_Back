@@ -221,9 +221,10 @@ public class GradingStatusService {
      * passList -> SendEmailDto
      */
     public SendEmailDto getSendEmailDto(SendEmailDto emailDto) {
-        List<String> passList = updatePassList(emailDto.getPassList());
+        List<String> emailList = updatePassList(emailDto.getEmail());
+        System.out.println(emailList);
         SendEmailDto sendEmailDto = SendEmailDto.builder()
-                .passList(passList)
+                .email(emailList)
                 .title(emailDto.getTitle())
                 .text(emailDto.getText())
                 .build();

@@ -32,6 +32,7 @@ public class GradingController {
     @PostMapping("/grading/announcePNP/{department}/{step}")
     public SendEmailDto announcePNPPost(@PathVariable("department") int department,
                                         @PathVariable("step") int step, @RequestBody SendEmailDto emailDto) {
+        System.out.println(emailDto);
         return gradingStatusService.getSendEmailDto(emailDto);
     }
 

@@ -9,7 +9,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SendEmailDto {
-    private List<String> passList;
+    private List<String> email;
     private String title;
     private String text;
 }
