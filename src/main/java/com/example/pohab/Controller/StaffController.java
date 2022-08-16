@@ -2,6 +2,7 @@ package com.example.pohab.Controller;
 
 import com.example.pohab.DTO.CreateStaffDto;
 import com.example.pohab.Entity.Staff;
+import com.example.pohab.Login.Service.KakaoUserService;
 import com.example.pohab.Repository.StaffRepository;
 import com.example.pohab.Service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,4 +38,5 @@ public class StaffController {
     public void deleteStaff(@PathVariable("staff_id") Integer staff_id) {
         this.staffService.deleteStaff(staff_id);
     }
+
 }
