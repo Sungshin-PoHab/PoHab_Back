@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -52,5 +54,9 @@ public class ApplyStatus {
         this.tmp_date = this.tmp_date == null ? LocalDateTime.now() : this.tmp_date;
         this.is_submit = this.is_submit == null ? is_submit.temp : this.is_submit;
         this.is_pass = this.is_pass == null ? IsPass.waiting : this.is_pass;
+    }
+
+    public void updatePass() {
+        this.is_pass = IsPass.pass;
     }
 }

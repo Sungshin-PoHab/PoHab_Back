@@ -3,6 +3,7 @@ package com.example.pohab.Controller;
 import com.example.pohab.DTO.CreateQuestionDto;
 import com.example.pohab.DTO.UpdateQuestionDto;
 import com.example.pohab.Entity.Question;
+import com.example.pohab.Repository.QuestionRepository;
 import com.example.pohab.Service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +31,11 @@ public class QuestionController {
     @GetMapping("")
     public List<Question> getQuestionByDepartment(@RequestParam("department") Integer department_id) {
         return this.questionService.getQuestionByDepartment(department_id);
+    }
+
+    @GetMapping("/{party_id}")
+    public List<Question> getQuestionByParty(@PathVariable("party_id") String party_id) {
+        return this.questionService.getQuestionByParty(party_id);
     }
 
     // 지원서 양식(question) 질문/제한길이 수정하기
