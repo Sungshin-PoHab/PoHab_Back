@@ -31,6 +31,7 @@ public class ApplyStatusService {
         this.departmentRepository = departmentRepository;
         this.stepRepository = stepRepository;
     }
+
     /** 지원 현황 전체 리스트 가져오기 */
     public List<ApplyStatus> getAllApplyStatus() {
         return applyStatusRepository.findAll();

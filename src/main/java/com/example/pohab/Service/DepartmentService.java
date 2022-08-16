@@ -163,6 +163,11 @@ public class DepartmentService {
         return this.departmentRepository.findDepartmentsNameByParty(party);
     }
 
+    // 모집 부서(department) 소속(darty) & 부서(department)별로 읽어오기
+    public Department findDeByPartyAndDe(String party_id, String department) {
+        return departmentRepository.findDepartmentByParty_IdAndDepartment(party_id, department);
+    }
+
     // 모집 부서(department) 수정하기
     public Department updateDepartment(Integer department_id, UpdateDepartmentDto updateDepartmentDto) {
         Department update_department = this.departmentRepository.findById(department_id).orElse(null);

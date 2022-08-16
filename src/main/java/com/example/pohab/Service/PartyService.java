@@ -1,14 +1,16 @@
 package com.example.pohab.Service;
 
 import com.example.pohab.DTO.PartyEnrollDTO;
+import com.example.pohab.DTO.PartyListForStaffDto;
 import com.example.pohab.Entity.Party;
 import com.example.pohab.Entity.Staff;
 import com.example.pohab.Entity.User;
-import com.example.pohab.Repository.PartyRepository;
-import com.example.pohab.Repository.StaffRepository;
-import com.example.pohab.Repository.UserRepository;
+import com.example.pohab.Login.Model.UserDetailsImpl;
+import com.example.pohab.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.List;
 import java.util.Random;
@@ -19,12 +21,16 @@ public class PartyService {
     private PartyRepository partyRepository;
     private StaffRepository staffRepository;
     private UserRepository userRepository;
+    private DepartmentRepository departmentRepository;
+    private StepRepository stepRepository;
 
     @Autowired
-    public PartyService (PartyRepository partyRepository, StaffRepository staffRepository, UserRepository userRepository){
+    public PartyService (PartyRepository partyRepository, StaffRepository staffRepository, UserRepository userRepository, DepartmentRepository departmentRepository, StepRepository stepRepository){
         this.partyRepository = partyRepository;
         this.staffRepository = staffRepository;
         this.userRepository = userRepository;
+        this.departmentRepository = departmentRepository;
+        this.stepRepository = stepRepository;
     }
 
     public Party enroll(Integer userId, PartyEnrollDTO partyEnrollDTO) {
@@ -55,7 +61,7 @@ public class PartyService {
 
             Staff staff = Staff.builder()
                     .party(party)
-                    .role("운영진")
+                    .role("회장")
                     .user(realuser)
                     .build();
 
@@ -72,5 +78,24 @@ public class PartyService {
 
     List<Party> findAll() {
         return partyRepository.findAll();
+    }
+
+    /** staff & department & step -> PartyListForStaffDto */
+    public List<PartyListForStaffDto> getPartyListForStaffDto(UserDetailsImpl userDetailsIml) {
+        List<PartyListForStaffDto> partyDtos = new ArrayList<>();
+        List<Staff> staffList = staffRepository.findAllByUser_Id(userDetailsIml.getId());
+
+        for (Staff staff : staffList) {
+            int deId = departmentRepository.findDepartmentByParty_IdAndDepartment(staff.getParty().getId(), "공통").getId();
+            int step = stepRepository.findAllByParty(staff.getParty()).get(0).getId();
+            PartyListForStaffDto dto = PartyListForStaffDto.builder()
+                    .partyId(staff.getParty().getId())
+                    .role(staff.getRole())
+                    .departmentId(deId)
+                    .stepId(step)
+                    .build();
+            partyDtos.add(dto);
+        }
+        return partyDtos;
     }
 }

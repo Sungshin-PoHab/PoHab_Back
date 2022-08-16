@@ -10,20 +10,22 @@ import com.example.pohab.Repository.PartyRepository;
 import com.example.pohab.Repository.StaffRepository;
 import com.example.pohab.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.http.HttpException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class StaffService {
+
     private final StaffRepository staffRepository;
     private final PartyRepository partyRepository;
     private final UserRepository userRepository;
+
+    public List<Staff> getAllByUser(User user) {
+        return staffRepository.getAllByUser(user);
+    }
 
     // 운영진(Staff) 생성
     public Staff createStaff(String party_id, CreateStaffDto createStaffDto) {
@@ -60,4 +62,10 @@ public class StaffService {
     public void deleteStaff(Integer staff_id) {
         this.staffRepository.deleteById(staff_id);
     }
+
+    // 운영진(Staff) userId별로 가져오기
+    public List<Staff> findAllByUser(int userId) {
+         return staffRepository.findAllByUser_Id(userId);
+    }
+
 }
