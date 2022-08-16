@@ -8,6 +8,7 @@ import com.example.pohab.Login.Model.UserDetailsImpl;
 import com.example.pohab.Repository.ApplyStatusRepository;
 import com.example.pohab.Repository.ChatRepository;
 import com.example.pohab.Repository.StaffRepository;
+import com.example.pohab.Service.ChatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -27,9 +28,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class WebSocketController {
     private final SimpMessagingTemplate simpMessagingTemplate;
-    private final StaffRepository staffRepository;
     private final ChatRepository chatRepository;
-    private final ApplyStatusRepository applyStatusRepository;
+    private final ChatService chatService;
+
     private HashMap<String, Integer> sessions = new HashMap<>();
 
     @GetMapping("/chat/{apply_id}")
@@ -39,22 +40,10 @@ public class WebSocketController {
 
     @MessageMapping("/chat")
     public void sendMessage(ChatDto chatDto, SimpMessageHeaderAccessor accessor) {
-        System.out.println(accessor.getSessionId());
         Integer writerId = sessions.get(accessor.getSessionId());
         chatDto.setWriterId(writerId);
 
-        Chat chat = new Chat();
-        Staff staff = this.staffRepository.findStaffByUser_id(writerId);
-        ApplyStatus applyStatus = this.applyStatusRepository.findById(chatDto.getApplyId()).orElse(null);
-
-        if (applyStatus == null) {
-            System.out.println("error");
-        } else {
-            chat.setStaff(staff);
-            chat.setApplyStatus(applyStatus);
-            chat.setChat(chatDto.getChat());
-            this.chatRepository.save(chat);
-        }
+        this.chatService.createChat(chatDto, writerId);
 
         simpMessagingTemplate.convertAndSend("/sub/chat/" + chatDto.getApplyId(), chatDto);
     }
