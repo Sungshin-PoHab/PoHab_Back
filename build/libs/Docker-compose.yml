@@ -1,0 +1,28 @@
+version: "3.7"
+
+services:
+  db-mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: pohab
+      MYSQL_USER: pohab
+      MYSQL_PASSWORD: pohabpw12345
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    ports:
+      - 3306:3306
+    networks:
+      - springboot-mysql-net
+  test-app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - 8787:8787
+    depends_on:
+      - db-mysql
+    networks:
+      - springboot-mysql-net
+
+networks:
+  springboot-mysql-net:
+    driver: bridge
