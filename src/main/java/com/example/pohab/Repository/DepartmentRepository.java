@@ -13,6 +13,8 @@ public interface DepartmentRepository extends JpaRepository<Department, Integer>
     List<Department> findAllByParty_Id(String party_id);
     List<Department> findDepartmentsByParty(Party party);
 
+    Department findDepartmentByParty_IdAndDepartment(String party_id, String department);
+
     /** 소속별 모집 부서 리스트 가져오기 */
     @Query("select d.department from Department d where d.party = :party")
     List<String> findDepartmentsNameByParty(@Param("party") Party party);

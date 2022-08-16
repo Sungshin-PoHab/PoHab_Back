@@ -2,6 +2,7 @@ package com.example.pohab.Controller;
 
 import com.example.pohab.DTO.CreateGradingStandardDto;
 import com.example.pohab.DTO.GradingResultDto;
+import com.example.pohab.DTO.SendEmailDto;
 import com.example.pohab.DTO.UpdateGradingStandardDto;
 import com.example.pohab.Entity.*;
 import com.example.pohab.Service.*;
@@ -18,7 +19,6 @@ public class GradingController {
     private final DepartmentService departmentService;
     private final StepService stepService;
     private final GradingStandardService gradingStandardService;
-    private final ApplyStatusService applyStatusService;
 
     /** 합격 여부 통보 (Get) */
     @GetMapping("/grading/announcePNP/{department}/{step}")
@@ -30,15 +30,10 @@ public class GradingController {
 
     /** 합격 여부 통보 (Post) */
     @PostMapping("/grading/announcePNP/{department}/{step}")
-    public String announcePNPPost(@PathVariable("department") int department,
-                                @PathVariable("step") int step, @RequestBody List<String> passList) {
-        System.out.println("합격 리스트: " + passList);
-        for (String pass : passList) {
-            ApplyStatus applyStatus = applyStatusService.getApplyStatusById(Integer.parseInt(pass));
-            applyStatusService.updatePass(applyStatus);
-        }
-        System.out.println("합격 처리 완료했습니다.");
-        return "success";
+    public SendEmailDto announcePNPPost(@PathVariable("department") int department,
+                                        @PathVariable("step") int step, @RequestBody SendEmailDto emailDto) {
+        System.out.println(emailDto);
+        return gradingStatusService.getSendEmailDto(emailDto);
     }
 
     // 채점 양식(Grading Standard) 등록

@@ -42,6 +42,22 @@ public class DepartmentService {
         return departmentRepository.findDepartmentsByParty(party);
     }
 
+    /** party(소속)별 공통 부서Id 가져오기 + 개인정보 부서 & 설명 부서도 가져 옴 **/
+    public List<Department> findCommonDepartmentByParty(String party_id) {
+        Party party = partyRepository.findById(party_id).orElse(null);
+        //해당 소속의 부서 모두 가져옴
+        List<Department> departments = departmentRepository.findAllByParty_Id(party.getId());
+        List<Department> commonDepartment = new ArrayList<>();
+
+        //부서 중에 공통/개인정보/설명 부서 검색
+        for (Department department : departments) {
+            if (department.getDepartment().equals("공통") || department.getDepartment().equals("개인정보") || department.getDepartment().equals("설명")) {
+                commonDepartment.add(department);
+            }
+        }
+        return commonDepartment;
+    }
+
     /** department -> mainDto */
     public List<MainDto> entityToMainDto() {
         List<Party> allParty = partyService.findAll();
@@ -145,6 +161,11 @@ public class DepartmentService {
     // 모집 부서(department) 소속(party) 별로 읽어오기 -> String 타입 리스트
     public List<String> findDepartmentsNameByParty(Party party) {
         return this.departmentRepository.findDepartmentsNameByParty(party);
+    }
+
+    // 모집 부서(department) 소속(darty) & 부서(department)별로 읽어오기
+    public Department findDeByPartyAndDe(String party_id, String department) {
+        return departmentRepository.findDepartmentByParty_IdAndDepartment(party_id, department);
     }
 
     // 모집 부서(department) 수정하기
