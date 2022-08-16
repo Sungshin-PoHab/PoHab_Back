@@ -55,7 +55,7 @@ public class PartyService {
 
             Staff staff = Staff.builder()
                     .party(party)
-                    .role("운영진")
+                    .role("회장")
                     .user(realuser)
                     .build();
 
