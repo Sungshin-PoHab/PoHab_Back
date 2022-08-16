@@ -1,30 +1,27 @@
 package com.example.pohab.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
-@Entity
 @Getter
 @Setter
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
+@Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class GradingStatus {
+public class Chat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "staff_id")
-    private Staff staff;
+    @JoinColumn(name = "apply_id")
+    private ApplyStatus applyStatus;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "apply_id")
-    private ApplyStatus apply_status;
+    @JoinColumn(name = "writer_id")
+    private Staff staff;
 
-    @Column(nullable = false)
-    private int score;
+    private String chat;
 }

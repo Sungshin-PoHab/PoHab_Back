@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface StaffRepository extends JpaRepository<Staff, Integer> {
     List<Staff> getAllByUser(User user);
-    public List<Staff> findAllByParty_id(String party_id);
-    public List<Staff> findAllByUser_Id(int user_id);
+    List<Staff> findAllByUser_Id(int user_id);
+    Staff findStaffByUser_id(Integer user_id);
+    List<Staff> findAllByParty_id(String party_id);
+    Staff findByUser_id(Integer user_id);
 }
