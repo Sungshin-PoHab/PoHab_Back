@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface StaffRepository extends JpaRepository<Staff, Integer> {
-    public List<Staff> findAllByParty_id(String party_id);
     public List<Staff> findAllByUser_Id(int user_id);
+    List<Staff> findAllByParty_id(String party_id);
+    Staff findByUser_id(Integer user_id);
 }
