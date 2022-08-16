@@ -3,6 +3,7 @@ package com.example.pohab.Controller;
 import com.example.pohab.DTO.*;
 import com.example.pohab.DTO.CreateGradingStandardDto;
 import com.example.pohab.DTO.GradingResultDto;
+import com.example.pohab.DTO.SendEmailDto;
 import com.example.pohab.DTO.UpdateGradingStandardDto;
 import com.example.pohab.Entity.*;
 import com.example.pohab.Repository.AnswerRepository;
@@ -34,9 +35,10 @@ public class GradingController {
 
     /** 합격 여부 통보 (Post) */
     @PostMapping("/grading/announcePNP/{department}/{step}")
-    public List<String> announcePNPPost(@PathVariable("department") int department,
-                                @PathVariable("step") int step, @RequestBody List<String> passList) {
-        return gradingStatusService.updatePassList(passList);
+    public SendEmailDto announcePNPPost(@PathVariable("department") int department,
+                                        @PathVariable("step") int step, @RequestBody SendEmailDto emailDto) {
+        System.out.println(emailDto);
+        return gradingStatusService.getSendEmailDto(emailDto);
     }
 
     // 채점 양식(Grading Standard) 등록
