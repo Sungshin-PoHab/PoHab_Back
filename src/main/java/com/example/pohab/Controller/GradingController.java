@@ -1,9 +1,11 @@
 package com.example.pohab.Controller;
 
+import com.example.pohab.DTO.*;
 import com.example.pohab.DTO.CreateGradingStandardDto;
 import com.example.pohab.DTO.GradingResultDto;
 import com.example.pohab.DTO.UpdateGradingStandardDto;
 import com.example.pohab.Entity.*;
+import com.example.pohab.Repository.AnswerRepository;
 import com.example.pohab.Service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,8 @@ public class GradingController {
     private final DepartmentService departmentService;
     private final StepService stepService;
     private final GradingStandardService gradingStandardService;
+    private final GradingService gradingService;
+    private final AnswerRepository answerRepository;
     private final ApplyStatusService applyStatusService;
 
     /** 합격 여부 통보 (Get) */
@@ -57,6 +61,30 @@ public class GradingController {
     @DeleteMapping("/standard/{standard_id}")
     public void deleteGradingStandard(@PathVariable("standard_id") Integer standard_id) {
         this.gradingStandardService.deleteGradingStandard(standard_id);
+    }
+    
+    // 채점(Grading) 등록하기
+    @PostMapping("grading/{apply_id}")
+    public GradingStatus createGrading(@PathVariable("apply_id") Integer apply_id, @RequestBody()List<CreateGradingDto> createGradingDtos) {
+        return this.gradingService.createGrading(apply_id, createGradingDtos);
+    }
+
+    // 채점(Grading) 채점 현황(Grading Status) 별로 읽기
+    @GetMapping("/grading/{grading_status_id}")
+    public List<Grading> getGradingByGradingStatus(@PathVariable("grading_status_id") Integer grading_status_id) {
+        return this.gradingService.getGradingByGradingStatus(grading_status_id);
+    }
+
+    // 채점을 위해 지원현황별로 answer 불러오기
+    @GetMapping("/grading/apply/{apply_id}")
+    public List<Answer> getAnswerByApplyStatus(@PathVariable("apply_id") Integer apply_id) {
+        return this.answerRepository.findAllyByApplyStatus_id(apply_id);
+    }
+
+    // 채점(Grading) 수정하기
+    @PutMapping("/grading/{grading_id}")
+    public Grading updateGrading(@PathVariable("grading_id") Integer grading_id, @RequestBody() UpdateGradingDto updateGradingDto) {
+        return this.gradingService.updateGrading(grading_id, updateGradingDto);
     }
 
 }
