@@ -69,6 +69,7 @@ public class GradingStatusService {
         for (ApplyStatus as : allApplyStatusByDeNStep) {
             double avg = calculAvg(as); // 평균 점수
             ApplicantDto applicantDto = ApplicantDto.builder()
+                    .applyId(as.getId())
                     .name(as.getUser().getName()) // 지원자 이름
                     .score(avg) // 평균 점수
                     .scoredStaffNum(countGradedByDepartment(as)) // 채점한 운영진 수
@@ -110,8 +111,11 @@ public class GradingStatusService {
             total += calculAvg(as); // 전체 지원자 점수 합산
         }
 
+        double overallAvg = 0.0;
         double scale = Math.pow(10, 2);
-        double overallAvg = Math.round(total * scale) / (applicantNum - beforeGrading) / scale; // 전체 평균 (소수 두 번째 자리까지)
+        if ((applicantNum - beforeGrading) != 0) {
+            overallAvg = Math.round(total * scale) / (applicantNum - beforeGrading) / scale; // 전체 평균 (소수 두 번째 자리까지)
+        }
 
         double highScoreAmongAll = highScoreAmongAll(department, step); // 전체 지원자 중 최고 점수
         double lowestScoreAmongAll = lowestScoreAmongAll(department, step); // 전체 지원자 중 최저 점수
@@ -195,11 +199,13 @@ public class GradingStatusService {
      */
     public double lowestScoreAmongAll(Department department, Step step) {
         List<ApplyStatus> allApplyStatusByDeNStep = applyStatusService.getAllApplyStatusByDeNStep(department, step); // 부서별 & 단계별 지원 현황
-        double lowestScore = 100.0;
+        double lowestScore = 101.0;
         for (ApplyStatus as : allApplyStatusByDeNStep) {
+            if (calculAvg(as) == 0.0) continue; // 채점하지 않은 경우 제외
             if (lowestScore > calculAvg(as))
                 lowestScore = calculAvg(as);
         }
+        if (lowestScore == 101.0) lowestScore = 0.0; // 아무도 채점하지 않은 것으로 간주
         return lowestScore;
     }
 
