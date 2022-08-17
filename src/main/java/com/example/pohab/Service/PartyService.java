@@ -86,13 +86,13 @@ public class PartyService {
         List<Staff> staffList = staffRepository.findAllByUser_Id(userDetailsIml.getId());
 
         for (Staff staff : staffList) {
-            int deId = departmentRepository.findDepartmentByParty_IdAndDepartment(staff.getParty().getId(), "공통").getId();
-            int step = stepRepository.findAllByParty(staff.getParty()).get(0).getId();
+//            int deId = departmentRepository.findDepartmentByParty_IdAndDepartment(staff.getParty().getId(), "공통").getId();
+//            int step = stepRepository.findAllByParty(staff.getParty()).get(0).getId();
             PartyListForStaffDto dto = PartyListForStaffDto.builder()
                     .partyId(staff.getParty().getId())
                     .role(staff.getRole())
-                    .departmentId(deId)
-                    .stepId(step)
+//                    .departmentId(deId)
+//                    .stepId(step)
                     .build();
             partyDtos.add(dto);
         }
