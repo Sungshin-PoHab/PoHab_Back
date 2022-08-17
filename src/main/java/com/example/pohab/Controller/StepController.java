@@ -44,6 +44,12 @@ public class StepController {
         return this.stepService.getPartyStep(party_id);
     }
 
+    //소속의 1단계 step 읽어오기
+    @GetMapping("/step/first/{party_id}")
+    public Step getPartyFirstStep(@PathVariable("party_id") String party_id) {
+        return this.stepService.getPartyFirstStep(party_id);
+    }
+
     // 모집 일정(step) 날짜 수정하기
     @PutMapping("/step/{step_id}")
     public Step updateStep(@PathVariable("step_id") Integer step_id, @RequestBody UpdateStepDto updateStepDto) {

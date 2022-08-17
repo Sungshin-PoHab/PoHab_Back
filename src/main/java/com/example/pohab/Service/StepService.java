@@ -2,6 +2,7 @@ package com.example.pohab.Service;
 
 import com.example.pohab.DTO.CreateStepDto;
 import com.example.pohab.DTO.UpdateStepDto;
+import com.example.pohab.Entity.Department;
 import com.example.pohab.Entity.Party;
 import com.example.pohab.Entity.Step;
 import com.example.pohab.Repository.PartyRepository;
@@ -59,6 +60,19 @@ public class StepService {
     // 모집 일정(step) 소속(party) 별로 읽어오기
     public List<Step> getPartyStep(Party party) {
         return this.stepRepository.findAllByParty(party);
+    }
+
+
+    // partyid로 첫 번째 step 반환하기
+    public Step getPartyFirstStep(String party_id) {
+        List<Step> steps = this.stepRepository.findAllByParty_Id(party_id);
+
+        for (Step step : steps) {
+            if (step.getStep() == 1){
+                return step;
+            }
+        }
+        return null;
     }
 
     // 모집 일정(step) 날짜 수정하기
