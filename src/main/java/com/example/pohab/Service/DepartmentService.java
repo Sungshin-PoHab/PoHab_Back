@@ -124,6 +124,7 @@ public class DepartmentService {
                     .availability(true)
                     .availability(availability)
                     .department(findDepartmentsNameByParty(party))
+                    .departmentList(findDepartmentsByParty(party))
                     .stepDateDtos(stepDateDtos)
                     .build();
             mainDtos.add(mainDto);

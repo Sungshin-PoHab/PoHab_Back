@@ -1,5 +1,6 @@
 package com.example.pohab.DTO;
 
+import com.example.pohab.Entity.Department;
 import lombok.*;
 
 import java.util.List;
@@ -14,5 +15,6 @@ public class MainDto {
     private List<String> competition; // 경쟁률
     private boolean availability; // 모집 여부
     private List<String> department; // 모집 부서 리스트
+    private List<Department> departmentList; // 모집 부서 리스트
     private List<StepDateDto> stepDateDtos; // 단계 + 모집 날짜
 }
