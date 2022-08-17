@@ -2,18 +2,13 @@ package com.example.pohab.Service;
 
 import com.example.pohab.DTO.PartyEnrollDTO;
 import com.example.pohab.DTO.PartyListForStaffDto;
-import com.example.pohab.Entity.Party;
-import com.example.pohab.Entity.Staff;
-import com.example.pohab.Entity.User;
+import com.example.pohab.Entity.*;
 import com.example.pohab.Login.Model.UserDetailsImpl;
 import com.example.pohab.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Optional;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @Service
 public class PartyService {
@@ -81,21 +76,32 @@ public class PartyService {
     }
 
     /** staff & department & step -> PartyListForStaffDto */
-    public List<PartyListForStaffDto> getPartyListForStaffDto(UserDetailsImpl userDetailsIml) {
+    public Map<Party, List<Object>> getPartyListForStaffDto(UserDetailsImpl userDetailsIml) {
         List<PartyListForStaffDto> partyDtos = new ArrayList<>();
         List<Staff> staffList = staffRepository.findAllByUser_Id(userDetailsIml.getId());
 
+        List<Object> resData = new ArrayList<Object>();
+        ArrayList<Party> parties = new ArrayList<>();
+
+        Map<Party, List<Object>> returnData = new HashMap<>();
+
         for (Staff staff : staffList) {
-            int deId = departmentRepository.findDepartmentByParty_IdAndDepartment(staff.getParty().getId(), "공통").getId();
-            int step = stepRepository.findAllByParty(staff.getParty()).get(0).getId();
-            PartyListForStaffDto dto = PartyListForStaffDto.builder()
-                    .partyId(staff.getParty().getId())
-                    .role(staff.getRole())
-                    .departmentId(deId)
-                    .stepId(step)
-                    .build();
-            partyDtos.add(dto);
+            Party party = staff.getParty();
+            parties.add(party);
+            resData.add(this.departmentRepository.findAllByParty_Id(party.getId()));
+            resData.add(this.stepRepository.findAllByParty(party));
+            returnData.put(party, resData);
+//            int deId = departmentRepository.findDepartmentByParty_IdAndDepartment(staff.getParty().getId(), "공통").getId();
+//            int step = stepRepository.findAllByParty(staff.getParty()).get(0).getId();
+//            PartyListForStaffDto dto = PartyListForStaffDto.builder()
+//                    .partyId(staff.getParty().getId())
+//                    .role(staff.getRole())
+//                    .departmentId(deId) // 얘
+//                    .stepId(step)  // 얘 이거 두개가 문젠데
+//                    .build();
+//            partyDtos.add(dto);
         }
-        return partyDtos;
+//        return partyDtos;
+        return returnData;
     }
 }

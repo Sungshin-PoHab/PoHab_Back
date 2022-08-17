@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
@@ -31,7 +33,7 @@ public class PartyController {
 
     /** 소속(party) 운영진(Staff)별로 읽기 */
     @GetMapping("/staff")
-    public List<PartyListForStaffDto> partyByStaff() {
+    public Map<Party, List<Object>> partyByStaff() {
         UserDetailsImpl userDetailsIml = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return partyService.getPartyListForStaffDto(userDetailsIml);
     }
