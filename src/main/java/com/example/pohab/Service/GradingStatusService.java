@@ -77,7 +77,16 @@ public class GradingStatusService {
             applicantDtoList.add(applicantDto);
         }
 
-        List<Department> partyDepartment = departmentService.getPartyDepartment(department.getParty().getId());// 소속별 부서 리스트 가져오기
+        List<Department> departmentListTemp = departmentService.getPartyDepartment(department.getParty().getId());// 소속별 부서 리스트 가져오기
+
+        List<Department> realDepartment = new ArrayList<>();
+        for (Department depart : departmentListTemp) {
+            if (depart.getDepartment().equals("설명") || depart.getDepartment().equals("개인정보")) {
+            } else {
+                realDepartment.add(depart);
+            }
+        }
+
         List<Step> partyStep = stepService.getPartyStep(department.getParty());// 소속별 단계 리스트 가져오기
 
         ApplyStatusForStaffDto dto = ApplyStatusForStaffDto.builder()
@@ -88,7 +97,7 @@ public class GradingStatusService {
                 .applicantNum(applicantNum)
                 .competition(competition)
                 .applicantDtoList(applicantDtoList)
-                .departmentDtoList(partyDepartment)
+                .departmentDtoList(realDepartment)
                 .stepDtoList(partyStep)
                 .build();
 

@@ -66,18 +66,15 @@ public class DepartmentService {
 
         for (Party party : allParty) {
 
+            List<Department> realCompetition = new ArrayList<>();
             // 부서별 경쟁률
             allDepartment = findDepartmentsByParty(party);
-            List<String> competitionList = new ArrayList<>();
+
             for (Department department : allDepartment) {
-                int applicantNum = applyStatusService.countApplyStatusByDepartment(department);
-                double competition = applicantNum / (double) department.getPersonnel();
-
-                double scale = Math.pow(10, 2);
-                double competitionTwo = Math.round(competition * scale) / scale; // 소수 두 번째 자리까지
-
-                String stringCompertition = department.getDepartment() + " 부서 경쟁률: " + competitionTwo + " : 1";
-                competitionList.add(stringCompertition);
+                if (department.getDepartment().equals("설명") || department.getDepartment().equals("개인정보")){
+                } else {
+                    realCompetition.add(department);
+                }
             }
 
             List<StepDateDto> stepDateDtos = new ArrayList<>();
@@ -118,13 +115,38 @@ public class DepartmentService {
             boolean availability = false;
             if (availabilitys.contains(true)) availability = true;
 
-            MainDto mainDto = MainDto.builder()
+
+            List<String> realDepart = new ArrayList<>();
+
+            List<Department> realDepartment = new ArrayList<>();
+            List<Department> departmentListTemp = findDepartmentsByParty(party);
+            for (Department department : departmentListTemp) {
+                if (department.getDepartment().equals("설명") || department.getDepartment().equals("개인정보")) {
+                } else {
+                    realDepart.add(department.getDepartment());
+                    realDepartment.add(department);
+                }
+            }
+
+            List<String> competitionList = new ArrayList<>();
+            for (Department department : realDepartment) {
+                int applicantNum = applyStatusService.countApplyStatusByDepartment(department);
+                double competition = applicantNum / (double) department.getPersonnel();
+
+                double scale = Math.pow(10, 2);
+                double competitionTwo = Math.round(competition * scale) / scale; // 소수 두 번째 자리까지
+
+                String stringCompertition = department.getDepartment() + " 부서 경쟁률: " + competitionTwo + " : 1";
+                competitionList.add(stringCompertition);
+            }
+
+                MainDto mainDto = MainDto.builder()
                     .party(party.getId())
                     .competition(competitionList)
                     .availability(true)
                     .availability(availability)
-                    .department(findDepartmentsNameByParty(party))
-                    .departmentList(findDepartmentsByParty(party))
+                    .department(realDepart)
+                    .departmentList(realDepartment)
                     .stepDateDtos(stepDateDtos)
                     .build();
             mainDtos.add(mainDto);
