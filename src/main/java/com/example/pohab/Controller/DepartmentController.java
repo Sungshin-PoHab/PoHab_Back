@@ -23,9 +23,15 @@ public class DepartmentController {
     }
 
 
-    /** 해당 소속의 공통 부서 반환 **/
+    /** 해당 소속의 설명+개인정보+공통 부서 반환 **/
     @GetMapping("/{party_id}")
     public List<Department> findDepartmentsNameByParty(@PathVariable("party_id") String party_id){
         return this.departmentService.findCommonDepartmentByParty(party_id);
+    }
+
+    /** 해당 소속의 공통 부서만 반환 **/
+    @GetMapping("/common/{party_id}")
+    public Department findCommonDepartmentById(@PathVariable("party_id") String party_id){
+        return this.departmentService.findCommonByParty(party_id);
     }
 }
