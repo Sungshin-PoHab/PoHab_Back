@@ -43,9 +43,9 @@ public class WebSocketController {
         Integer writerId = sessions.get(accessor.getSessionId());
         chatDto.setWriterId(writerId);
 
-        this.chatService.createChat(chatDto, writerId);
+        ChatDto returnDto = this.chatService.createChat(chatDto, writerId);
 
-        simpMessagingTemplate.convertAndSend("/sub/chat/" + chatDto.getApplyId(), chatDto);
+        simpMessagingTemplate.convertAndSend("/sub/chat/" + chatDto.getApplyId(), returnDto);
     }
 
     @EventListener(SessionConnectEvent.class)
