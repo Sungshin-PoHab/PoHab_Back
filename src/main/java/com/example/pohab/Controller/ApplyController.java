@@ -39,6 +39,10 @@ public class ApplyController {
     // 동아리 지원 -> apply_status에 저장 및 answer null로 초기화.
     @PostMapping("/saveStatus")
     public ApplyStatus saveStatus(@RequestBody ApplyUserForPartyDTO applyUserForPartyDTO) {
+        UserDetailsImpl userDetailsIml = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Integer userId = userDetailsIml.getId();
+
+        applyUserForPartyDTO.setUser(userId);
         ApplyStatus applyStatus = this.applyStatusService.applyUserTForParty(applyUserForPartyDTO);
         //지원한 소속
         Party party = applyStatus.getDepartment().getParty();

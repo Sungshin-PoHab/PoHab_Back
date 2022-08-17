@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 
-@CrossOrigin(origins = "http://localhost:5000")
+@CrossOrigin(origins = "*")
 @RestController
 //@AllArgsConstructor
 public class UserController {
