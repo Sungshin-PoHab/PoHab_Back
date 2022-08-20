@@ -64,7 +64,7 @@ public class GradingStatusService {
         double competition = applicantNum / (double) department.getPersonnel(); // 경쟁률
 
         List<ApplicantDto> applicantDtoList = new ArrayList<>();
-        List<ApplyStatus> allApplyStatusByDeNStep = applyStatusService.getAllApplyStatusByDeNStep(department, step); // 부서별 & 단계별 지원 현황
+        List<ApplyStatus> allApplyStatusByDeNStep = applyStatusService.getAllApplyStatusByDeNStepSubmit(department, step); // 부서별 & 단계별 지원 현황
 
         for (ApplyStatus as : allApplyStatusByDeNStep) {
             double avg = calculAvg(as); // 평균 점수
@@ -115,16 +115,22 @@ public class GradingStatusService {
 
         double total = 0.0;
         for (ApplyStatus as : allApplyStatusByDeNStep) {
-            if (calculAvg(as) != 0.0) // 평균이 0점인 경우
+            if (calculAvg(as) == 0.0) // 평균이 0점인 경우
                 beforeGrading++; // 채점하지 않은 것으로 간주 -> 평균 계산 & 최저 점수 계산 시 제외
             total += calculAvg(as); // 전체 지원자 점수 합산
         }
 
+        System.out.println("total is " + total);
+        System.out.println("applicantNum is " + applicantNum);
+        System.out.println("beforeGrading is " + beforeGrading);
+
         double overallAvg = 0.0;
-        double scale = Math.pow(10, 2);
         if ((applicantNum - beforeGrading) != 0) {
-            overallAvg = Math.round(total * scale) / (applicantNum - beforeGrading) / scale; // 전체 평균 (소수 두 번째 자리까지)
+            overallAvg = total / (applicantNum - beforeGrading);
+            overallAvg = (double)Math.round(overallAvg*100)/100; // 전체 평균 (소수 두 번째 자리까지)
         }
+
+        System.out.println("overallAvg is " + overallAvg);
 
         double highScoreAmongAll = highScoreAmongAll(department, step); // 전체 지원자 중 최고 점수
         double lowestScoreAmongAll = lowestScoreAmongAll(department, step); // 전체 지원자 중 최저 점수

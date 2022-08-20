@@ -57,6 +57,11 @@ public class ApplyStatusService {
         return applyStatusRepository.getAllApplyStatusByDeNStep(department, step);
     }
 
+    /** 부서별 & 단계별 지원 현황 리스트 가져오기 */
+    public List<ApplyStatus> getAllApplyStatusByDeNStepSubmit(Department department, Step step) {
+        return applyStatusRepository.getAllApplyStatusByDeNStepSubmit(department, step, IsSubmit.submission);
+    }
+
     /** 부서별 지원 인원 세기 */
     public int countApplyStatusByDepartment(Department department) {
         return applyStatusRepository.countApplyStatusByDepartment(department);

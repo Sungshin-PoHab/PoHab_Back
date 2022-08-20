@@ -1,6 +1,7 @@
 package com.example.pohab.Repository;
 
 import com.example.pohab.Entity.*;
+import com.example.pohab.Enum.IsSubmit;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -20,6 +21,10 @@ public interface ApplyStatusRepository extends JpaRepository<ApplyStatus, Intege
     /** 특정 부서 & 특정 단계의 지원 현황 */
     @Query("select a from ApplyStatus a where a.department = :department and a.step = :step")
     List<ApplyStatus> getAllApplyStatusByDeNStep(@Param("department") Department department, @Param("step") Step step);
+
+    /** 특정 부서 & 특정 단계 & 제출 완료한 지원 현황 */
+    @Query("select a from ApplyStatus a where a.department = :department and a.step = :step and a.is_submit = :submission")
+    List<ApplyStatus> getAllApplyStatusByDeNStepSubmit(@Param("department") Department department, @Param("step") Step step, @Param("submission") IsSubmit submission);
 
     /** 특정 부서별 지원 인원 세기 */
     @Query("select count(distinct a.user) from ApplyStatus a where a.department = :department")
