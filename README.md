@@ -31,3 +31,6 @@
 
 # 프로젝트 구조도
 ![image](https://github.com/Sungshin-PoHab/PoHab_Back/assets/62099953/2cd8159b-fd66-45fb-95f5-d8027d682b7b)
+
+# API 명세서
+https://documenter.getpostman.com/view/13577383/2s946o59jp
